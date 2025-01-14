@@ -1,0 +1,58 @@
+.wrapper2 {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    mask-image: linear-gradient(to right,
+    rgba(0,0,0,0), 
+    rgba(0,0,0,1) 20%, 
+    rgba(0,0,0,1) 80%, 
+    rgba(0,0,0,0));
+    margin-top: 20px;
+    
+}
+
+.image-container {
+    display: flex;
+    width: 200%; /* Ensures enough space for scrolling */
+}
+
+.image-container-right {
+    display: flex;
+    flex: 1;
+    flex-shrink: 0;
+}
+
+.items {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px; /* Space between images */
+}
+
+/* Scrolling Left */
+.image-container-left {
+    animation: scrollLeft 20s linear infinite;
+}
+
+/* Duplicated container to create seamless scroll effect */
+.image-container::before {
+    content: '';
+    display: flex; 
+    width: 100%;
+}
+
+/* Keyframes for seamless scroll */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Move by half the width for continuous scrolling */
+    }
+}
+
+.wrapper2:hover .image-container-left {
+    animation-play-state: paused; /* Pauses the animation on hover */
+}

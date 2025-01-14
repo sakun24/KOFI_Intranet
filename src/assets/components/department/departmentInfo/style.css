@@ -1,0 +1,70 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    color: black;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    color: orange;
+    font-size: 2rem;
+  }
+  
+  .link-box.color {
+    border: 2px solid #ff0000; 
+  }
+  
+/* src/assets/components/LinksList.css */
+.links-list {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin-bottom: 100px;
+}
+
+.links-list_idp h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.links-list h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 75px;
+}
+
+.links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between boxes */
+  justify-content: center;
+}
+
+.link-box {
+  display: block;
+  width: auto; /* Width of each box */
+  padding: 20px;
+  border: 2px solid #ff9100; /* Border color */
+  border-radius: 8px;
+  text-decoration: none;
+  color: #007bff;
+  background-color: #f8f9fa; /* Background color */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.link-box:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.link-content {
+  font-size: 16px;
+}

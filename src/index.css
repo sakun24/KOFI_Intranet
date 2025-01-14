@@ -1,0 +1,48 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: rgb(255, 245, 245);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --orange-color: #F48120;
+  --dark-orange-color: #540000;
+}
+
+body {
+  padding: 0 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: 100%; /* Prevent overflow */
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 768px) {
+  body {
+    padding: 0 30px; /* Adjusted padding for tablets */
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding: 0 60px; /* Adjusted padding for larger desktops */
+  }
+}
+
+@media (min-width: 1440px) {
+  body {
+    max-width: 1440px; /* Set max width to avoid too much content stretching */
+    margin: 0 auto;    /* Center content on large screens */
+    padding: 0 60px;   /* Maintain consistent padding */
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    padding: 0 15px; /* Slightly larger padding for small mobile devices */
+  }
+}

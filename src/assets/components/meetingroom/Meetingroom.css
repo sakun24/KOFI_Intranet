@@ -1,0 +1,314 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.booking-room-container-detail{
+  height: 700px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.container_booking_room {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+
+.title {
+  font-size: 26px;
+  text-transform: uppercase;
+  border-left: 10px solid rgba(128, 68, 0, 0.78);
+  padding-left: 12px;
+  margin: 20px 0;
+  text-align: center;
+  color: #333;
+  animation: fadeIn 1.5s ease;
+}
+
+
+
+.room_section #room{
+  font-size: 24px;
+  font-weight: bold;
+  color: #522000;
+  /* padding-bottom: 10px; */
+  border-bottom: 1px dashed #a3a3a3;
+}
+
+.tickets_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Multiple columns for meeting items */
+  gap: 20px;
+}
+
+.ticket {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border: 1px dashed #ccc;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ticket:hover {
+  transform: scale(1.008);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.ticket_left {
+  background-color: #5a2600;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 10px;
+  border-right: 1px dashed #ccc;
+  flex-direction: column;
+  text-align: center;
+}
+
+.ticket_left .coming_soon {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.ticket_left .date {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.ticket_right {
+  padding: 15px;
+  background-color: #ffe4b2;
+  text-transform: capitalize;
+  flex: 1;
+}
+
+.meeting_title {
+  width: 100%;
+  overflow: hidden; 
+   white-space: nowrap;
+}
+.meeting_room_h1{
+  color: #522000;
+  font-size: 26PX;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.meetingroom_button {
+  background-color: orange;
+  height: 35px;
+  width: 150px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  /* margin-top: 20px; */
+  transition: background-color 0.3s ease;
+  float: right;
+}
+
+.meetingroom_button:hover {
+  background-color: #e68900;
+}
+
+.meeting_title h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #522000;
+  font-weight: bold;
+  text-align: left;
+  text-transform: capitalize;
+  overflow: hidden;
+  white-space: nowrap;       /* Prevent text from wrapping */
+  text-overflow: ellipsis;   /* Show '...' when text overflows */
+  width: 300px;  
+}
+
+.details {
+  margin-top: 10px;
+  color: #333;
+}
+
+.details p {
+  margin: 5px 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;       /* Prevent text from wrapping */
+  overflow: hidden;          /* Hide the overflowing text */
+  text-overflow: ellipsis;  
+}
+
+.location_dropdown {
+  margin: 20px 0;
+  padding: 10px;
+  color: #333;
+}
+
+.location_dropdown label {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #333;
+}
+
+#locationSelect {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  color: #333;
+  width: 200px;
+}
+
+#locationSelect option {
+  padding: 8px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+#locationSelect option:hover {
+  background-color: #f4f4f4;
+}
+
+#locationSelect:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.ticket_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 20px;
+}
+
+.ticket_info .status {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  position: absolute;
+  top: 5%;
+}
+
+.create-ticket-btn {
+  margin: 20px 0;
+  text-align: end;
+}
+
+.create-ticket-btn button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.create-ticket-btn button:hover {
+  background-color: #45a049;
+}
+
+.ticket_info .date-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticket_info .date-day {
+  font-size: 40px;
+}
+
+.ticket_info .date-month {
+  font-size: 18px;
+  color: #cacaca;
+}
+
+.location_dropdown {
+  margin: 20px 0;
+  padding: 10px;
+  color: #333;
+}
+
+.location_dropdown label {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #333;
+}
+
+.no-booking-message {
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 20px;
+  margin:90PX 0;
+  color: #ff0000;
+}
+.no-booking-message a{
+  text-decoration: none;
+  color: rgb(189, 92, 1);
+  font-weight: bold;
+}
+
+#roomSelect {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  color: #333;
+  /* width: 200px; */
+}
+
+
+/* For larger screens */
+@media (min-width: 768px) {
+  .container_booking_room {
+    grid-template-columns: 1fr 1fr 1fr; /* 3 columns layout */
+    gap: 30px;
+  }
+  
+  .room_section {
+    display: block;
+  }
+  
+  .ticket {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container_booking_room {
+    grid-template-columns: 1fr; /* Single column layout on very small screens */
+  }
+}

@@ -1,0 +1,116 @@
+/* Container Styles */
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #4d331f; /* Darker background for a more elegant look */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Softer shadow for better focus */
+    transition: all 0.3s ease;
+}
+
+.login-container:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); /* Slight hover shadow enhancement */
+}
+
+/* Heading Styles */
+.login-container h2 {
+    text-align: center;
+    color: #ffcc00;
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: 600; /* Bolder text for stronger emphasis */
+}
+
+/* Error Message Styles */
+.login-container p {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Input Field Styles */
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    color: black;
+}
+
+/* Focus Effect on Input Fields */
+.login-container input:focus {
+    outline: none;
+    /* border-color: #ffcc00; */
+    /* box-shadow: 0 0 5px rgba(255, 204, 0, 0.7); */
+}
+
+/* Button Styles */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #ff9900;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-container button:hover {
+    background-color: #e68a00;
+    transform: translateY(-3px); /* Lift effect on hover */
+}
+
+.login-container button:active {
+    transform: translateY(0); /* Button press effect */
+}
+
+/* Show Password Checkbox Styles */
+.show-password {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    text-align: left;
+    font-size: 14px;
+    width: 200px;
+    /* background-color: red; */
+    color: #f0f0f0; /* Light color for better contrast */
+}
+.label-showpass{
+    width: 500px;
+}
+
+.show-password input {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .login-container {
+        padding: 20px;
+        margin: 50px auto;
+    }
+
+    .login-container h2 {
+        font-size: 22px;
+    }
+
+    .login-container input, .login-container button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .show-password {
+        font-size: 12px;
+    }
+}

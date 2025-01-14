@@ -1,0 +1,24 @@
+/* src/components/footer.css */
+.footer {
+    /* background-color: #333; */
+    color: #000000;
+    padding: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+  
+  .footer a {
+    color: #000000;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-content p {
+    margin: 5px 0;
+  }
+  

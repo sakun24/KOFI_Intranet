@@ -1,0 +1,167 @@
+/* General Styles for DepartmentPage */
+.department-page {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin: 20px auto;
+  justify-items: center;
+}
+
+/* Make the grid responsive */
+@media (max-width: 1366px) {
+  .department-page {
+    grid-template-columns: repeat(4, 1fr); /* Adjust for medium screens */
+  }
+}
+
+@media (max-width: 1024px) {
+  .department-page {
+    grid-template-columns: repeat(3, 1fr); /* Adjust for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .department-page {
+    grid-template-columns: repeat(2, 1fr); /* Adjust for tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .department-page {
+    grid-template-columns: 1fr; /* Adjust for mobile screens */
+  }
+}
+
+.department-box {
+  background: linear-gradient(145deg, #fff5e6, #fbe8d3); /* Gradient background */
+  border: 1px solid #bfa15d; /* Medium brown border */
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Softer shadow */
+  padding: 20px;
+  height: 250px;
+  width: 250px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  display: block;
+  overflow-wrap: break-word;
+}
+
+.department-box:hover {
+  transform: translateY(-8px); /* Subtle lift effect */
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(145deg, #fbe8d3, #fff5e6); /* Lighter gradient on hover */
+}
+
+.department-box h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #d77b00; /* Dark orange text */
+  font-weight: bold; /* Stronger emphasis */
+  font-family: 'Roboto', sans-serif; /* Modern typography */
+}
+
+
+/* Dropdown Styles */
+.dropdown-noop {
+  background-color: rgb(163, 163, 163);
+  color: black;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  padding: 12px 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dropdown-toggle {
+  background: #d77b00; /* Dark orange background */
+  color: white;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+  background: #8a3c00; /* Lighter orange on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
+.dropdown-menu {
+  display: block; /* Hidden by default */
+  top: 100%;
+  left: 0;
+  background: #fff5e6; /* Light orange-brown for dropdown */
+  border: 1px solid #bfa15d; /* Medium brown border */
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  position: relative;
+  visibility: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+}
+
+.dropdown-container:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  background: #fbe8d3; /* Slightly lighter orange-brown on hover */
+  z-index: 20;
+}
+
+.dropdown-container:hover .dropdown-toggle {
+  background: #ff6f00; /* Lighter orange on hover */
+}
+
+.dropdown-menu button {
+  background: none;
+  border: none;
+  padding: 12px 24px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  color: #d77b00; /* Dark orange text */
+  font-size: 1rem;
+}
+
+.dropdown-menu button:hover {
+  background: #ca6c00; /* Light orange-brown background on hover */
+  color: #ffffff; /* Lighter orange on hover */
+  font-weight: 500;
+}
+
+.dropdown-menu button:focus {
+  outline: 2px solid #d77b00; /* Highlight outline */
+}
+
+/* Opening message styles */
+.opening-message {
+  margin-top: 15px; /* Spacing above the message */
+  font-size: 1rem; /* Font size */
+  position: relative;
+  top: 0;
+  background-color: rgba(255, 0, 0, 0.8); /* Semi-transparent red background */
+  color: #8a5a3e; /* Brown color */
+  overflow: hidden; /* Ensures no overflow occurs */
+  line-height: 1.5; /* Improved line height for readability */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px; /* Padding for better spacing */
+}
+
+.opening-message a {
+  color: #d77b00; /* Dark orange link */
+  text-decoration: underline; /* Add underline to links */
+  font-weight: bold; /* Emphasize link */
+}
+
+.opening-message a:hover {
+  color: #ff6f00; /* Lighter orange on hover */
+}

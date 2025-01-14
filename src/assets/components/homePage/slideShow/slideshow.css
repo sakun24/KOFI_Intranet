@@ -1,0 +1,119 @@
+/* Swiper container */
+.swiper {
+  width: 100%;
+  /* height: 50vh; Uncomment if needed */
+}
+
+/* Image styling within swiper slides */
+
+/* Swiper slide styling */
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Items slideshow styling */
+.items_slideshow {
+  position: relative;
+  
+
+}
+
+/* Styling for images within swiper slides */
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* Styling for loading count */
+#loading-count {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin: auto 0;
+  z-index: 20;
+  bottom: 10%;
+  right: 100px; /* Position from the right edge */
+}
+
+/* Styling for loading count heading */
+#loading-count h1 {
+  font-size: 8rem;
+  color: orange;
+  display: block;
+}
+
+/* Styling for loading count paragraph */
+#loading-count p {
+  font-size: 1.5rem;
+  color: rgba(202, 131, 0, 0.979);
+  line-height: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  #loading-count {
+    right: 60px; /* Adjust position for smaller screens */
+  }
+}
+
+@media (max-width: 992px) {
+  #loading-count {
+    right: 30px; /* Further adjust position */
+    font-size: 20px; /* Adjust font size */
+  }
+  
+  #loading-count h1 {
+    font-size: 6rem; /* Reduce size of heading */
+  }
+  
+  #loading-count p {
+    font-size: 1.25rem; /* Adjust paragraph size */
+  }
+}
+
+@media (max-width: 768px) {
+  .swiper-slide {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
+  
+  #loading-count {
+    right: 15px; /* Further adjust position */
+  }
+  
+  #loading-count h1 {
+    font-size: 3rem; /* Reduce size of heading */
+    line-height: 30px;
+  }
+  
+  #loading-count p {
+    font-size: 1rem; /* Adjust paragraph size */
+  }
+}
+
+@media (max-width: 576px) {
+  .swiper-slide {
+    font-size: 14px; /* Further adjust font size for mobile screens */
+  }
+  
+  #loading-count {
+    font-size: 14px; /* Further adjust font size */
+    right: 10px; /* Adjust position */
+  }
+  
+  #loading-count h1 {
+    font-size: 2.5rem; /* Further reduce size of heading */
+  }
+  
+  #loading-count p {
+    font-size: 0.875rem; /* Further adjust paragraph size */
+  }
+}

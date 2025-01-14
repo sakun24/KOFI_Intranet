@@ -1,0 +1,94 @@
+section {
+    margin-top: 50px;
+    display: flex;
+    gap: 100px;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: red; Uncomment if needed for debugging */
+}
+
+.about {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.5; /* Fixed line-height */
+    color: black;
+}
+
+span {
+    color: #F48120;
+}
+
+h1 {
+    color: black;
+    font-size: 2.1rem;
+}
+
+.right {
+    width: 30%; /* Consider using max-width if necessary */
+}
+
+.left p {
+    color: #333;
+    text-align: justify;
+    font-size: 1.1rem;
+}
+
+.fi {
+    color: #853c00;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    section {
+        gap: 1.5rem; /* Adjust gap for medium screens */
+    }
+    .right {
+        flex: 1;
+    }
+    .left{
+        flex: 1;
+    }
+    .right img {
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover; /* Ensure image covers the container without distortion */
+    }
+
+    h1 {
+        font-size: 2rem; /* Adjust font-size for headings on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        gap: 1rem; /* Reduce gap for smaller screens */
+    }
+    .right {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .right img {
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover; /* Ensure image covers the container without distortion */
+    }
+
+    h1 {
+        font-size: 1.75rem; /* Further reduce font-size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .about {
+        font-size: 1.5rem; /* Reduce font-size for smaller screens */
+    }
+
+    .left p {
+        font-size: 1rem; /* Reduce font-size for better readability on small screens */
+    }
+
+    h1 {
+        font-size: 1.5rem; /* Further reduce font-size for very small screens */
+    }
+}

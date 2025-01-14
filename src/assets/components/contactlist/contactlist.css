@@ -1,0 +1,449 @@
+/* Color Variables */
+:root {
+    --background-light: #f4f4f4;
+    --text-light: #333;
+    --container-light: #ffffff;
+    --primary-color: #007bff;
+    --primary-dark: #0056b3;
+    --success-color: #28a745;
+    --success-dark: #218838;
+    --danger-color: #dc3545;
+    --danger-dark: #c82333;
+    --table-header-bg: #ff7f00;
+    --table-header-text: #ffffff;
+    --table-row-even: #f9f9f9;
+    --table-row-hover: #e7e7e7;
+    --section-header-bg: #ffcc99;
+    --alert-success-bg: #d4edda;
+    --alert-success-text: #155724;
+    --alert-danger-bg: #f8d7da;
+    --alert-danger-text: #721c24;
+    --search-input-bg: #ffffff;
+    --search-input-border: #ffd89d;
+    --search-input-focus-border: #ff7b00;
+    --latest-employee-bg: #f9f9f9;
+    --latest-employee-border: #ddd;
+}
+.filter-buttons {
+    margin: 20px 0;
+  }
+  
+  .filter-buttons button {
+    margin-right: 10px;
+    padding: 10px;
+    color: rgb(122, 122, 122);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #ddd;
+  }
+  
+  .filter-buttons button.active {
+    background-color: var(--search-input-focus-border); /* Change to your preferred active color */
+    color: white;
+  }
+  
+  .filter-buttons button:hover {
+    background-color: var(--search-input-border);
+  }
+  
+/* Contact List Styles */
+.contact-list {
+    font-family: 'Arial', sans-serif;
+    color: var(--text-light);
+    /* padding: 20px; */
+}
+
+/* Header */
+#contactList-h1 {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Search Container */
+.search-container {
+    margin-bottom: 20px;
+    /* text-align: right; */
+}
+
+.search-container input {
+    padding: 12px 10px; 
+    font-size: 16px;
+    width: 90%;
+    border: 2px solid var(--search-input-border);
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: var(--search-input-bg);
+    color: var(--text-light);
+}
+
+.search-container input::placeholder {
+    color: #aaa;
+}
+
+.search-container input:focus {
+    border-color: var(--search-input-focus-border);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Dropdown Styles */
+/* Dropdown Container */
+.dropdown-container-department {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    float: inline-end;
+  }
+  
+  /* Dropdown Select */
+  .dropdown-container-department select {
+    /* width: 80%; */
+    /* max-width: 400px; */
+    padding: 10px;
+    cursor: pointer;
+    align-items: end;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    border: 2px solid #f79100; /* Accent color */
+    border-radius: 8px;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Hover and Focus States */
+  .dropdown-container-department select:hover,
+  .dropdown-container-department select:focus {
+    border-color: #ff9f33; /* Slightly lighter accent color */
+    background-color: #fef6e4; /* Subtle background highlight */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Option Styles */
+  .dropdown-container-department select option {
+    padding: 10px;
+    background-color: #fff;
+    font-size: 16px;
+  }
+  
+
+
+.dropdown-container-deparment .dropdown:hover {
+    border-color: var(--search-input-focus-border);
+    background-color: var(--search-input-bg);
+}
+
+/* Latest Employee Record */
+.latest-employee {
+    background-color: var(--latest-employee-bg);
+    padding: 0 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--latest-employee-border);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.latest-employee p {
+    margin: 5px 0;
+}
+
+/* Table Styles */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container thead th {
+    background-color: var(--table-header-bg);
+    color: var(--table-header-text);
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.table-container tbody td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+    font: 15px sans-serif;
+}
+#center{
+    text-align: center;
+    /* white-space: nowrap; */
+}
+.table-container tbody tr a{
+    text-decoration: none;
+    color: black;
+}
+.table-container tbody tr a:hover{
+    color: blue;
+}
+
+.table-container tbody tr:nth-child(odd) {
+    background-color: var(--table-row-even);
+}
+
+.table-container tbody tr:nth-child(even) {
+    background-color: rgb(238, 238, 238);
+}
+
+.table-container tbody tr:hover {
+    background-color: var(--table-row-hover);
+}
+
+.table-container .section-header td {
+    background-color: var(--section-header-bg);
+    color: var(--text-light);
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid var(--table-header-bg);
+}
+
+ .copy-email-btn {
+    background-color: orange; /* Keeps the original background color */
+    height: 50px;
+    /* width: 15%; */
+    padding: 10px 20px;
+    border: none; /* Removes the default border */
+    border-radius: 8px; /* Adds rounded corners */
+    color: white; /* Text color for contrast */
+    font-size: 16px; /* Slightly larger font for readability */
+    font-weight: bold; /* Makes the text bold */
+    cursor: pointer; /* Changes the cursor to pointer on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+
+.copy-email-btn:hover {
+    background-color: darkorange; /* Darkens the button on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Enhances shadow on hover */
+}
+
+
+.go-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f79100;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  z-index: 100;
+}
+
+.go-to-top-btn:hover {
+  background-color: #7c3e00;
+}
+
+/* Copy alert styles */
+.copy-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    background-color: #4CAF50; /* Default green for success */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    z-index: 9999;
+    opacity: 0;
+    animation: fadeInOut 3s ease-out forwards;
+  }
+  
+  /* Success message color */
+  .copy-alert.success {
+    background-color: #4CAF50;
+  }
+  
+  /* Error message color */
+  .copy-alert.error {
+    background-color: #f44336;
+  }
+  
+  /* Warning message color */
+  .copy-alert.warning {
+    background-color: #ff9800;
+  }
+  
+  /* Animation for fading in and out */
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .contact-list {
+    padding: 20px;
+  }
+  
+  /* Filter buttons */
+  .filter-buttons button.active {
+    background-color: #f79100;
+  }
+  
+  /* Go to top button */
+  .go-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 10px 15px;
+    background-color: #f79100;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 9999;
+  }
+  
+  .go-to-top:hover {
+    background-color: #ff9800;
+  }
+  
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    #contactList-h1 {
+        font-size: 1.8rem;
+    }
+
+    .search-container input, .dropdown-container-deparment .dropdown {
+        font-size: 14px;
+        width: 100%; /* Makes the input fields take full width */
+    }
+
+    .latest-employee {
+        flex-direction: column; /* Stacks elements vertically on smaller screens */
+        text-align: center;
+    }
+
+    .latest-employee p {
+        margin: 5px 0;
+    }
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto; /* Ensures tables remain scrollable on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    #contactList-h1 {
+        font-size: 1.5rem;
+    }
+
+    .search-container input, .dropdown-container-deparment .dropdown {
+        font-size: 12px;
+        padding: 10px;
+        width: 100%; /* Makes the input and dropdown 100% width */
+    }
+
+    table thead th, tbody td {
+        font-size: 0.9rem; /* Reduces font size for readability on smaller screens */
+    }
+
+    .latest-employee {
+        padding: 10px;
+        flex-direction: column; /* Stack content vertically */
+    }
+
+    tbody tr a {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #contactList-h1 {
+        font-size: 1.2rem;
+    }
+
+    .search-container input, .dropdown-container-deparment .dropdown {
+        font-size: 10px;
+        padding: 8px;
+        width: 100%; /* Ensures full width on small screens */
+    }
+
+    .latest-employee {
+        padding: 8px;
+        text-align: center; /* Centers text in smaller screens */
+        flex-direction: column; /* Stack flex items vertically */
+    }
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto; /* Allows table scrolling on small screens */
+    }
+
+    table thead th, tbody td {
+        padding: 8px; /* Reduces padding for smaller screens */
+        font-size: 0.8rem; /* Adjusts font size */
+    }
+
+    tbody tr a {
+        font-size: 0.8rem; /* Reduces font size for anchor text */
+    }
+}
+
+/* Additional Touch Adjustments */
+@media (max-width: 320px) {
+    #contactList-h1 {
+        font-size: 1rem;
+    }
+
+    .search-container input, .dropdown-container-deparment .dropdown {
+        font-size: 9px;
+        padding: 6px;
+        width: 100%;
+    }
+
+    .latest-employee {
+        padding: 6px;
+    }
+
+    table thead th, tbody td {
+        padding: 6px;
+        font-size: 0.7rem;
+    }
+
+    tbody tr a {
+        font-size: 0.7rem;
+    }
+}
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .dropdown-container-department select {
+      width: 90%;
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+  

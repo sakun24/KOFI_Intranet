@@ -1,0 +1,103 @@
+/* VisionMission.css */
+
+.mission-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  margin: 100px 0;
+  background-color: #f5f5f5; /* Light background color for contrast */
+}
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.our {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.highlight {
+  color: #774000; /* Highlight color */
+  font-size: 3rem;
+}
+
+.text p {
+  font-size: 1.3rem;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+.img_vission_mission {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for better responsiveness */
+  gap: 1rem; /* Space between images */
+  justify-content: center;
+  align-items: center;
+}
+
+.section-img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+.final-img-container {
+  margin-top: 2rem;
+}
+
+.final-img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+  .heading {
+    font-size: 1.75rem;
+  }
+
+  .text p {
+    font-size: 1rem;
+  }
+
+  .section-img {
+    max-width: 300px; /* Adjust max-width for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .heading {
+    font-size: 1.5rem;
+  }
+
+  .text p {
+    font-size: 0.875rem;
+  }
+
+  .img_vission_mission {
+    flex-direction: column;
+    gap: 2rem; /* Increase gap for mobile */
+  }
+
+  .section-img, .final-img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.25rem;
+  }
+
+  .text p {
+    font-size: 0.75rem;
+  }
+}

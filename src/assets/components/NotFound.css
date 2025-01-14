@@ -1,0 +1,47 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh; /* Full height of the viewport */
+    padding: 20px; /* Padding around the container */
+    font-family: 'Arial', sans-serif; /* Clean and modern font */
+  }
+  
+  .not-found-content {
+    text-align: center; /* Center text alignment */
+    border-radius: 8px; /* Slightly rounded corners */
+    padding: 40px; /* Ample padding for content */
+  }
+  
+  .not-found-content h1 {
+    font-size: 72px; /* Large font size for the heading */
+    color: orange; /* Dark gray color for better contrast */
+    margin-bottom: 10px; /* Spacing below the heading */
+  }
+  
+  .not-found-content h2 {
+    font-size: 24px; /* Medium font size for the subheading */
+    color: #555; /* Slightly lighter gray */
+    margin-bottom: 15px; /* Spacing below the subheading */
+  }
+  
+  .not-found-content p {
+    font-size: 18px; /* Font size for the paragraph */
+    color: #777; /* Gray color for text */
+    margin-bottom: 20px; /* Spacing below the paragraph */
+  }
+  
+  .home-link {
+    padding: 10px 20px;
+    background-color: #007bff; /* Primary button color */
+    color: #fff; /* White text color */
+    text-decoration: none; /* Remove underline from link */
+    border-radius: 5px; /* Rounded corners for the button */
+    transition: background-color 0.3s; /* Transition for hover effect */
+    font-weight: bold; /* Bold font for emphasis */
+  }
+  
+  .home-link:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
