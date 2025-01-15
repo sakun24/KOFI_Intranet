@@ -33,7 +33,7 @@ const Department_idp = () => {
     <div className="links-list">
     <HrIdp/>
 
-    <h1 ref={linksListRef}> All Departments</h1>
+    <h1 ref={linksListRef} style={{fontSize: '28px'}}> All Departments</h1>
     <div className="links-container">
       {links.map(link => (
         <a href={link.url} key={link.id} className="link-box" target='_blank'>

@@ -18,7 +18,11 @@ const HrIdp = () => {
     <div className="links-list_idp">
     {/* <DepartmentPage/> */}
 
-    <h2 ref={linksListRef}>Individual Development Plan (IDP) <br /> Master Development Plan (MDP)</h2>
+    <h2 ref={linksListRef} class="development-plans-title">
+      Individual Development Plan (IDP), Master Development Plan (MDP) 
+      <br /> Competency Framework (CF)
+    </h2>
+
     <div className="links-container">
       {links.map(link => (
         <a href={link.url} key={link.id} className="link-box" >

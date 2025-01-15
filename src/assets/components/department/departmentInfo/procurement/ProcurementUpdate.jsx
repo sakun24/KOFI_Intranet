@@ -70,17 +70,16 @@ const ProcurementUpdate = () => {
     
             return (
                 <tr key={index} className={rowClass}>
-                <td>{item['PR No.']}</td>
-                <td>{item['Department']}</td>
-                <td>{item['Requestor name']}</td>
-                <td>{item['Date of PR'] ? formatDate(item['Date of PR']) : ""}</td>
-                <td dangerouslySetInnerHTML={{ __html: item['Description']?.replace(/\n/g, "<br>") }}></td>
-                <td>{item['Status']}</td>
-                <td>{item['Date Pending'] ? formatDate(item['Date Pending']) : ""}</td>
-                <td>{item['Date Completed'] ? formatDate(item['Date Completed']) : ""}</td>
-                <td dangerouslySetInnerHTML={{ __html: item['Remarks/Action Required']?.replace(/\n/g, "<br>") }}></td>
-              </tr>
-              
+                    <td>{item['PR No.']}</td>
+                    <td>{item['Department']}</td>
+                    <td>{item['Requestor name']}</td>
+                    <td>{item['Date of PR'] ? formatDate(item['Date of PR']) : ""}</td>
+                    <td>{item['Description']}</td>
+                    <td>{item['Status']}</td>
+                    <td>{item['Date Pending'] ? formatDate(item['Date Pending']) : ""}</td>
+                    <td>{item['Date Completed'] ? formatDate(item['Date Completed']) : ""}</td>
+                    <td>{item['Remarks/Action Required']}</td>
+                </tr>
             );
         });
     };

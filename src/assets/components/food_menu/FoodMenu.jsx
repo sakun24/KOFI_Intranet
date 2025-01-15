@@ -49,13 +49,17 @@ const FoodMenu = () => {
       {error && <p>Error: {error}</p>}
       {lastMenu ? (
         <ul>
-          <li key={lastMenu.id}>
+         <li 
+            key={lastMenu.id} 
+            style={{ listStyle: 'none' }}
+          >
             <img 
               src={`http://192.168.123.90/foodmenu/${lastMenu.image}`} 
               alt="Food Menu" 
               style={{ width: '100%', height: 'auto' }} 
             />
           </li>
+
         </ul>
       ) : (
         <p style={{ color: 'black' }}>No menu available</p>

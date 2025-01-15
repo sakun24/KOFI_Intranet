@@ -12,7 +12,7 @@ const ContactList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [filterRole, setFilterRole] = useState('');
-  const api = 'http://192.168.120.27/api/employees';
+  const api = 'http://192.168.123.90/api/employees';
   const [showGoToTop, setShowGoToTop] = useState(false);
   const allEmployees = Object.values(employeesByDepartment).flat();
   const latestCreated = allEmployees.length > 0 ? new Date(Math.max(...allEmployees.map(emp => new Date(emp.created_at)))) : null;

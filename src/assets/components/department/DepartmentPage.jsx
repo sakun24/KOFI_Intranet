@@ -16,8 +16,8 @@ const departments = [
     options: [
       { id: 1, name: 'HR SYSTEM', url: 'http://192.168.123.15/bluehcm//applogin.aspx' }, 
       { id: 2, name: 'HR & ADMIN E-FORM', url: '/landing/hradmin_eform' }, 
-      { id: 3, name: 'IDP & MDP', url: '/landing/hr-idp' },
-      { id: 4, name: 'ON BOARDING PROGRAM', url: 'https://1drv.ms/x/s!AFe8kLbGnEA9gRc?e=HkbRQN' }, 
+      { id: 3, name: 'IDP & MDP & CF', url: '/landing/hr-idp' },
+      { id: 4, name: 'ON BOARDING PROGRAM', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' }, 
       { id: 5, name: 'ON BOARDING PROCESS', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' }, 
     ],
   },

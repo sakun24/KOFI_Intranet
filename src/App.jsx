@@ -63,7 +63,7 @@ function App() {
           <Route path="/landing/hr-idp/department_idp" element={<Department_idp/>} /> 
           <Route path="/landing/procurement_purchase_update" element={<ProcurementUpdate />} /> 
           {/* Fallback route for 404 errors */}
-          <Route path="" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </Router>
