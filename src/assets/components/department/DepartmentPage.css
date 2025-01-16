@@ -16,58 +16,6 @@
   justify-items: center;
 }
 
-/* Sub-dropdown Styles */
-.sub-dropdown {
-  display: block;
-  background-color: var(--background-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  box-shadow: var(--box-shadow);
-  /* margin-top: 10px; */
-  position: absolute;
-  /* left: 80%; */
-  width: 100%;
-  opacity: 0;
-  left: 95%;
-  top: 50%;
-  visibility: hidden;
-  transform: translateY(10px); /* Added transform for smooth slide-in */
-  transition: opacity var(--transition-duration) var(--transition-ease), 
-              transform var(--transition-duration) var(--transition-ease), 
-              visibility var(--transition-duration) var(--transition-ease);
-}
-.dropdown-item:hover .sub-dropdown {
-  opacity: 1;
-  visibility: visible;
-  display: block;
-  z-index: 200;
-}
-
-/* Sub-dropdown Link Styles */
-.sub-dropdown .dropdown-sub-link {
-  display: block;
-  padding: 10px 20px;
-  text-decoration: none;
-  position: relative;
-  color: var(--text-color);
-  font-size: 1rem;
-  transition: background var(--transition-duration) var(--transition-ease), 
-              color var(--transition-duration) var(--transition-ease), 
-              transform 0.2s var(--transition-ease);
-}
-
-.sub-dropdown .dropdown-sub-link:hover {
-  background: #ca6c00;
-  color: #ffffff;
-  border-radius: 5px;
-  display: block;
-  font-weight: 500;
-}
-
-.sub-dropdown .dropdown-sub-link:focus-visible {
-  outline: 2px solid var(--text-color); /* Highlight outline */
-}
-
 /* Make the grid responsive */
 @media (max-width: 1366px) {
   .department-page {

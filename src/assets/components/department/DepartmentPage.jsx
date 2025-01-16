@@ -17,13 +17,7 @@ const departments = [
       { id: 1, name: 'ON BOARDING PROCESS', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' },
       { id: 2, name: 'INDUCTION PROGRAM', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' },
       { id: 3, name: 'MDP 1.0', url: '/landing/hr-idp' },
-      {
-        id: 4,
-        name: 'ORG CHART',
-        subOptions: [
-          { id: 1, name: '2025', url: '/orgchart/team-structure' },
-        ],
-      },
+      { id: 4, name: 'ORG CHART', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gUPR2O3PKADfL6mT?e=WFUbob' },
       { id: 5, name: 'HR & ADMIN E-FORM', url: '/landing/hradmin_eform' },
       { id: 6, name: 'HR SYSTEM', url: 'http://192.168.123.15/bluehcm//applogin.aspx' },
     ],
@@ -45,7 +39,7 @@ const departments = [
   {
     name: 'TECHNICAL SERVICE',
     options: [
-      // Add options here
+      { id: 1, name: 'TECHNICAL E-FORM', url: '/landing/technical_eform'}, // External link
     ],
   },
   {
@@ -102,29 +96,32 @@ const DepartmentPage = ({ isBlocked }) => {
   const [iframeUrls, setIframeUrls] = useState([]);
 
   const handleOptionChange = (url) => {
-    if (!iframeUrls.includes(url)) {
-      setIframeUrls((prevUrls) => [...prevUrls, url]);
-    }
+    setIframeUrls(prevUrls => {
+      if (!prevUrls.includes(url)) {
+        return [...prevUrls, url];
+      }
+      return prevUrls;
+    });
   };
-
-  useEffect(() => {
-    document.title = 'KOFI - Departments';
-  }, []);
 
   if (isBlocked) {
     return <div>Access to this page is blocked.</div>;
   }
+  useEffect(()=> {
+    document.title = "KOFI - Departments"
+  },[]);
 
   return (
     <div className="department-page">
-      {departments.map((department, index) => (
+      {departments.map(department => (
         <DepartmentBox
-          key={index}
+          key={department.name}
           departmentName={department.name}
           options={department.options}
-          onOptionChange={handleOptionChange}
+          onOptionChange={handleOptionChange} // Pass the handleOptionChange function as a prop
         />
       ))}
+ 
     </div>
   );
 };
