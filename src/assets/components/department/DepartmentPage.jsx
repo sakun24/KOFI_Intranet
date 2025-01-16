@@ -14,11 +14,11 @@ const departments = [
   {
     name: 'HR & ADMIN',
     options: [
-      { id: 1, name: 'HR SYSTEM', url: 'http://192.168.123.15/bluehcm//applogin.aspx' }, 
-      { id: 2, name: 'HR & ADMIN E-FORM', url: '/landing/hradmin_eform' }, 
-      { id: 3, name: 'IDP & MDP & CF', url: '/landing/hr-idp' },
-      { id: 4, name: 'ON BOARDING PROGRAM', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' }, 
-      { id: 5, name: 'ON BOARDING PROCESS', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' }, 
+      { id: 1, name: 'ON BOARDING PROCESS', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' }, 
+      { id: 2, name: 'INDUCTION PROGRAM', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' }, 
+      { id: 3, name: 'MDP 1.0', url: '/landing/hr-idp' },
+      { id: 4, name: 'HR & ADMIN E-FORM', url: '/landing/hradmin_eform' }, 
+      { id: 5, name: 'HR SYSTEM', url: 'http://192.168.123.15/bluehcm//applogin.aspx' }, 
     ],
   },
   {

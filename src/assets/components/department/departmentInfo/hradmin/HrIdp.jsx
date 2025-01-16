@@ -18,9 +18,7 @@ const HrIdp = () => {
     <div className="links-list_idp">
     {/* <DepartmentPage/> */}
 
-    <h2 ref={linksListRef} class="development-plans-title">
-      Individual Development Plan (IDP), Master Development Plan (MDP) 
-      <br /> Competency Framework (CF)
+    <h2 ref={linksListRef} class="development-plans-title">Master Development Plan (MDP)
     </h2>
 
     <div className="links-container">
