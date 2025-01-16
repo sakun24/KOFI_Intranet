@@ -1,45 +1,51 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import DepartmentBox from './DepartmentBox'; // Adjust path as needed
 import './DepartmentPage.css'; // Import CSS file for styling
 
 const departments = [
   {
     name: 'ITD',
-    options: [  
-      { id: 1, name: 'SUPPORT REQUEST', url: 'https://t.me/ITKOFIBOT' }, 
-      { id: 2, name: 'IT BONUS', url: 'https://docs.google.com/forms/d/e/1FAIpQLSc78Qdh43gjYEeQawEoOOvvUohAgWvkZmxBDJUaFK5B_26EDg/viewform?usp=send_form' }, 
-      { id: 3, name: 'IT Form', url: '/landing/it_form' }, 
+    options: [
+      { id: 1, name: 'SUPPORT REQUEST', url: 'https://t.me/ITKOFIBOT' },
+      { id: 2, name: 'IT BONUS', url: 'https://docs.google.com/forms/d/e/1FAIpQLSc78Qdh43gjYEeQawEoOOvvUohAgWvkZmxBDJUaFK5B_26EDg/viewform?usp=send_form' },
+      { id: 3, name: 'IT Form', url: '/landing/it_form' },
     ],
   },
   {
     name: 'HR & ADMIN',
     options: [
-      { id: 1, name: 'ON BOARDING PROCESS', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' }, 
-      { id: 2, name: 'INDUCTION PROGRAM', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' }, 
+      { id: 1, name: 'ON BOARDING PROCESS', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' },
+      { id: 2, name: 'INDUCTION PROGRAM', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' },
       { id: 3, name: 'MDP 1.0', url: '/landing/hr-idp' },
-      { id: 4, name: 'HR & ADMIN E-FORM', url: '/landing/hradmin_eform' }, 
-      { id: 5, name: 'HR SYSTEM', url: 'http://192.168.123.15/bluehcm//applogin.aspx' }, 
+      {
+        id: 4,
+        name: 'ORG CHART',
+        subOptions: [
+          { id: 1, name: '2025', url: '/orgchart/team-structure' },
+        ],
+      },
+      { id: 5, name: 'HR & ADMIN E-FORM', url: '/landing/hradmin_eform' },
+      { id: 6, name: 'HR SYSTEM', url: 'http://192.168.123.15/bluehcm//applogin.aspx' },
     ],
   },
   {
     name: 'FINANCE',
     options: [
-      { id: 1, name: 'POLICY & PROCEDURE', url: '/landing/finance'}, // External link
-      { id: 2, name: 'FINANCE E-FORM', url: '/landing/finance_eform' }, // External link
+      { id: 1, name: 'POLICY & PROCEDURE', url: '/landing/finance' },
+      { id: 2, name: 'FINANCE E-FORM', url: '/landing/finance_eform' },
     ],
   },
   {
     name: 'SUPPLY CHAIN',
     options: [
-      { id: 1, name: 'PROCUREMENT E-FORM', url: '/landing/procurement_eform' }, // External link
-      { id: 2, name: 'PROCUREMENT FILES', url: '/landing/procurement_files' }, // External link
-      // { id: 3, name: 'PURCHASE UPDATE', url: '/landing/procurement_purchase_update' }, // External link
+      { id: 1, name: 'PROCUREMENT E-FORM', url: '/landing/procurement_eform' },
+      { id: 2, name: 'PROCUREMENT FILES', url: '/landing/procurement_files' },
     ],
   },
   {
     name: 'TECHNICAL SERVICE',
     options: [
-      { id: 1, name: 'TECHNICAL E-FORM', url: '/landing/technical_eform'}, // External link
+      // Add options here
     ],
   },
   {
@@ -96,32 +102,29 @@ const DepartmentPage = ({ isBlocked }) => {
   const [iframeUrls, setIframeUrls] = useState([]);
 
   const handleOptionChange = (url) => {
-    setIframeUrls(prevUrls => {
-      if (!prevUrls.includes(url)) {
-        return [...prevUrls, url];
-      }
-      return prevUrls;
-    });
+    if (!iframeUrls.includes(url)) {
+      setIframeUrls((prevUrls) => [...prevUrls, url]);
+    }
   };
+
+  useEffect(() => {
+    document.title = 'KOFI - Departments';
+  }, []);
 
   if (isBlocked) {
     return <div>Access to this page is blocked.</div>;
   }
-  useEffect(()=> {
-    document.title = "KOFI - Departments"
-  },[]);
 
   return (
     <div className="department-page">
-      {departments.map(department => (
+      {departments.map((department, index) => (
         <DepartmentBox
-          key={department.name}
+          key={index}
           departmentName={department.name}
           options={department.options}
-          onOptionChange={handleOptionChange} // Pass the handleOptionChange function as a prop
+          onOptionChange={handleOptionChange}
         />
       ))}
- 
     </div>
   );
 };

@@ -1,3 +1,12 @@
+:root {
+  --background-color: hsl(32, 83%, 91%);
+  --border-color: #bfa15d;
+  --text-color: #d77b00;
+  --box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --transition-duration: 0.3s;
+  --transition-ease: ease;
+}
+
 /* General Styles for DepartmentPage */
 .department-page {
   display: grid;
@@ -7,58 +16,109 @@
   justify-items: center;
 }
 
+/* Sub-dropdown Styles */
+.sub-dropdown {
+  display: block;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  /* margin-top: 10px; */
+  position: absolute;
+  /* left: 80%; */
+  width: 100%;
+  opacity: 0;
+  left: 95%;
+  top: 50%;
+  visibility: hidden;
+  transform: translateY(10px); /* Added transform for smooth slide-in */
+  transition: opacity var(--transition-duration) var(--transition-ease), 
+              transform var(--transition-duration) var(--transition-ease), 
+              visibility var(--transition-duration) var(--transition-ease);
+}
+.dropdown-item:hover .sub-dropdown {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+  z-index: 200;
+}
+
+/* Sub-dropdown Link Styles */
+.sub-dropdown .dropdown-sub-link {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  position: relative;
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: background var(--transition-duration) var(--transition-ease), 
+              color var(--transition-duration) var(--transition-ease), 
+              transform 0.2s var(--transition-ease);
+}
+
+.sub-dropdown .dropdown-sub-link:hover {
+  background: #ca6c00;
+  color: #ffffff;
+  border-radius: 5px;
+  display: block;
+  font-weight: 500;
+}
+
+.sub-dropdown .dropdown-sub-link:focus-visible {
+  outline: 2px solid var(--text-color); /* Highlight outline */
+}
+
 /* Make the grid responsive */
 @media (max-width: 1366px) {
   .department-page {
-    grid-template-columns: repeat(4, 1fr); /* Adjust for medium screens */
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 @media (max-width: 1024px) {
   .department-page {
-    grid-template-columns: repeat(3, 1fr); /* Adjust for smaller screens */
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .department-page {
-    grid-template-columns: repeat(2, 1fr); /* Adjust for tablets */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 576px) {
   .department-page {
-    grid-template-columns: 1fr; /* Adjust for mobile screens */
+    grid-template-columns: 1fr;
   }
 }
 
 .department-box {
-  background: linear-gradient(145deg, #fff5e6, #fbe8d3); /* Gradient background */
-  border: 1px solid #bfa15d; /* Medium brown border */
+  background: linear-gradient(145deg, #fff5e6, #fbe8d3);
+  border: 1px solid #bfa15d;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Softer shadow */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   padding: 20px;
   height: 250px;
   width: 250px;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   display: block;
-  overflow-wrap: break-word;
+  overflow-wrap: break-word; /* Ensures long words wrap correctly */
 }
 
 .department-box:hover {
-  transform: translateY(-8px); /* Subtle lift effect */
+  transform: translateY(-8px);
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(145deg, #fbe8d3, #fff5e6); /* Lighter gradient on hover */
+  background: linear-gradient(145deg, #fbe8d3, #fff5e6);
 }
 
 .department-box h2 {
   margin-top: 0;
   font-size: 1.2rem;
-  color: #d77b00; /* Dark orange text */
-  font-weight: bold; /* Stronger emphasis */
-  font-family: 'Roboto', sans-serif; /* Modern typography */
+  color: var(--text-color);
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
 }
-
 
 /* Dropdown Styles */
 .dropdown-noop {
@@ -75,7 +135,7 @@
 }
 
 .dropdown-toggle {
-  background: #d77b00; /* Dark orange background */
+  background: var(--text-color);
   color: white;
   width: 100%;
   border: none;
@@ -87,37 +147,35 @@
 }
 
 .dropdown-toggle:hover {
-  background: #8a3c00; /* Lighter orange on hover */
+  background: #8a3c00;
   transform: scale(1.05); /* Slight zoom effect */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown-menu {
-  display: block; /* Hidden by default */
+  display: block;
   top: 100%;
   left: 0;
-  background: #fff5e6; /* Light orange-brown for dropdown */
-  border: 1px solid #bfa15d; /* Medium brown border */
+  background: #fff5e6;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   width: 100%;
-  overflow: hidden;
   opacity: 0;
   position: relative;
   visibility: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 
 .dropdown-container:hover .dropdown-menu {
-  display: block;
   opacity: 1;
   visibility: visible;
-  background: #fbe8d3; /* Slightly lighter orange-brown on hover */
+  background: #fbe8d3;
   z-index: 20;
 }
 
 .dropdown-container:hover .dropdown-toggle {
-  background: #ff6f00; /* Lighter orange on hover */
+  background: #ff6f00;
 }
 
 .dropdown-menu button {
@@ -128,40 +186,41 @@
   width: 100%;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
-  color: #d77b00; /* Dark orange text */
+  color: var(--text-color);
   font-size: 1rem;
 }
 
 .dropdown-menu button:hover {
-  background: #ca6c00; /* Light orange-brown background on hover */
-  color: #ffffff; /* Lighter orange on hover */
+  background: #ca6c00;
+  color: #ffffff;
   font-weight: 500;
+  border-radius: 5px;
 }
 
-.dropdown-menu button:focus {
-  outline: 2px solid #d77b00; /* Highlight outline */
+.dropdown-menu button:focus-visible {
+  outline: 2px solid var(--text-color);
 }
 
 /* Opening message styles */
 .opening-message {
-  margin-top: 15px; /* Spacing above the message */
-  font-size: 1rem; /* Font size */
+  margin-top: 15px;
+  font-size: 1rem;
   position: relative;
   top: 0;
-  background-color: rgba(255, 0, 0, 0.8); /* Semi-transparent red background */
-  color: #8a5a3e; /* Brown color */
-  overflow: hidden; /* Ensures no overflow occurs */
-  line-height: 1.5; /* Improved line height for readability */
-  border-radius: 8px; /* Rounded corners */
-  padding: 10px; /* Padding for better spacing */
+  background-color: rgba(255, 0, 0, 0.8);
+  color: #8a5a3e;
+  overflow: hidden;
+  line-height: 1.5;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .opening-message a {
-  color: #d77b00; /* Dark orange link */
-  text-decoration: underline; /* Add underline to links */
-  font-weight: bold; /* Emphasize link */
+  color: var(--text-color);
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .opening-message a:hover {
-  color: #ff6f00; /* Lighter orange on hover */
+  color: #ff6f00;
 }

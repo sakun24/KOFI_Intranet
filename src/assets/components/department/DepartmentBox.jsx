@@ -1,35 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const DepartmentBox = ({ departmentName, options = [] }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+const DepartmentBox = ({ departmentName, options = [], handleChange }) => {
   const [isOpen, setIsOpen] = useState(false); // State to manage dropdown visibility
   const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    const newSelectedUrl = event.target.value;
-    const option = options.find(option => option.url === newSelectedUrl);
-    setSelectedOption(option);
-
-    if (newSelectedUrl && newSelectedUrl !== "") {
-      if (newSelectedUrl.startsWith('/')) {
-        navigate(newSelectedUrl);
-      } else {
-        window.open(newSelectedUrl, '_blank', 'noopener,noreferrer');
-      }
-    }
-
-    setIsOpen(false); // Close the dropdown after selection
-  };
-
-  // Handlers for mouse events
-  const handleMouseEnter = () => {
-    setIsOpen(true); // Open the dropdown on hover
-  };
-
-  const handleMouseLeave = () => {
-    setIsOpen(false); // Close the dropdown when the mouse leaves
-  };
+  const handleMouseEnter = () => setIsOpen(true);
+  const handleMouseLeave = () => setIsOpen(false);
 
   return (
     <div 
@@ -39,25 +16,43 @@ const DepartmentBox = ({ departmentName, options = [] }) => {
     >
       <h2>{departmentName}</h2>
       <div className="dropdown-container">
-        {options.length > 0 ? (
-          <>
-            <button className="dropdown-toggle">Select an option</button>
-            {isOpen && ( // Show dropdown when isOpen is true
-              <div className="dropdown-menu">
-                {options.map(option => (
-                  <button 
-                    key={option.id} 
-                    onClick={() => handleChange({ target: { value: option.url } })}>
-                    {option.name}
-                  </button>
-                ))}
-              </div>
-            )}
-          </>
-        ) : (
-          <p className="dropdown-noop">No options available</p>
-        )}
-      </div>
+  {options.length > 0 ? (
+    <>
+      <button className="dropdown-toggle">Select an option</button>
+      {isOpen && (
+        <div className="dropdown-menu">
+          {options.map(option => (
+            <div key={option.id} className="dropdown-item">  {/* Ensure this is added */}
+              <button 
+                onClick={() => handleChange({ target: { value: option.url } })}>
+                {option.name}
+              </button>
+              {option.subOptions && (
+                <div className="sub-dropdown">
+                  {option.subOptions.map((subOption) => (
+                    <a
+                      key={subOption.id}
+                      href={subOption.url}
+                      className="dropdown-sub-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {subOption.name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  ) : (
+    <p className="dropdown-noop">No options available</p>
+  )}
+</div>
+
+
 
       {/* {selectedOption && (
         <p className="opening-message">
