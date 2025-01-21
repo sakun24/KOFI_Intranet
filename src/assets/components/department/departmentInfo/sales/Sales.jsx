@@ -5,7 +5,7 @@ import React, { useRef, useEffect } from 'react';
 
 const links = [
   { id: 1, text: 'SALES GENERAL FORM', url: 'https://docs.google.com/forms/d/e/1FAIpQLScjpviDvJ-lbfEyL-BpcLWgAPKYCDb5Huf9M5tHN4t9J1cKtw/viewform' },
-  { id: 2, text: 'Request cutting new machine to standby machine', url: 'https://forms.gle/ffESJmKqmcDu5pae8' },
+  { id: 2, text: 'Request cutting new machine to standby machine', url: 'https://forms.gle/UhSq5ERSLGUjc749A' },
 ];
 
 const Sales = () => {

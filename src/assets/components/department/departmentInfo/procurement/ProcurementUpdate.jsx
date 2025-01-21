@@ -45,7 +45,7 @@ const ProcurementUpdate = () => {
 
     const renderTableHeader = () => {
         const headers = [
-            'PR No.', 'Department', 'Requestor name', 'Date of PR', 'Description', 'Status', 'Date Pending', 'Date Completed', 'Remarks/Action Required'
+            'PR No.', 'Department', 'Requestor name', 'Date of PR', 'Description','Need Date', 'Status', 'Date Pending', 'Date Completed', 'Remarks/Action Required'
         ];
         return headers.map((header, index) => (
             <th key={index}>{header}</th>
@@ -75,6 +75,7 @@ const ProcurementUpdate = () => {
                     <td>{item['Requestor name']}</td>
                     <td>{item['Date of PR'] ? formatDate(item['Date of PR']) : ""}</td>
                     <td>{item['Description']}</td>
+                    <td>{item['Need Date'] ? formatDate(item['Need Date']) : ""}</td>
                     <td>{item['Status']}</td>
                     <td>{item['Date Pending'] ? formatDate(item['Date Pending']) : ""}</td>
                     <td>{item['Date Completed'] ? formatDate(item['Date Completed']) : ""}</td>
