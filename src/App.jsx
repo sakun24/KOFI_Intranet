@@ -29,6 +29,10 @@ import NotFound from './assets/components/NotFound.jsx';
 import ProcurementUpdate from './assets/components/department/departmentInfo/procurement/ProcurementUpdate.jsx';
 import HrIdp from './assets/components/department/departmentInfo/hradmin/HrIdp.jsx';
 import Department_idp from './assets/components/department/departmentInfo/hradmin/idp_departments/2024/Department_idp.jsx';
+import DepartmentList from './assets/components/Kofi_dashboard/DepartmentList/DepartmentList.jsx';
+import KposPage from './assets/components/Kofi_dashboard/KposPage/KposPage.jsx';
+import Dashboard from './assets/components/Kofi_dashboard/Dashboard.jsx';
+import PasswordProtection from './assets/components/Auth/PasswordProtection.jsx';
 
 function App() {
   return (
@@ -62,6 +66,19 @@ function App() {
           <Route path="/landing/hr-idp" element={<HrIdp />} /> 
           <Route path="/landing/hr-idp/department_idp" element={<Department_idp/>} /> 
           <Route path="/landing/procurement_purchase_update" element={<ProcurementUpdate />} /> 
+          <Route path="/landing/kofi_dashboard/department" element={<DepartmentList/>} />
+          <Route
+            path="/landing/kofi_dashboard"
+            element={
+              <PasswordProtection>
+                <Dashboard />
+              </PasswordProtection>
+            }
+          />
+          <Route path="/landing/v1/department/:departmentId/kpos" element={<KposPage />} />
+
+
+          
           {/* Fallback route for 404 errors */}
           <Route path="*" element={<NotFound />} />
         </Routes>

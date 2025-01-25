@@ -1,0 +1,218 @@
+/* Style for the department list */
+.dpl-department-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.dpl-department-list-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+}
+.dpl-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .dpl-modal-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dpl-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .dpl-login-heading {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .dpl-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .dpl-modal-close:hover {
+    color: #f79100;
+  }
+  
+  .dpl-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .dpl-password-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  .dpl-login-button {
+    padding: 12px;
+    background-color: #f79100;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dpl-login-button:hover {
+    background-color: #e68000;
+  }
+  
+  .dpl-error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+.dpl-department-box {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 20px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dpl-department-box:hover {
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-5px);
+}
+
+.dpl-h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style for the password modal popup */
+.dpl-password-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Ensure it's above other content */
+}
+
+.dpl-password-modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 100%;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.dpl-password-input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: whitesmoke;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.dpl-password-input:focus {
+    border-color: #3498db; /* Blue border on focus */
+    outline: none;
+}
+
+.dpl-submit-button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.dpl-submit-button:hover {
+    background-color: #45a049;
+}
+
+.dpl-error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Style for the close button inside the modal */
+.dpl-close-button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.dpl-close-button:hover {
+    background-color: #e53935;
+}
+
+/* Ensure responsiveness of modal and inputs */
+@media (max-width: 768px) {
+    .dpl-password-modal {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .dpl-password-input {
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .dpl-submit-button,
+    .dpl-close-button {
+        padding: 12px;
+    }
+}

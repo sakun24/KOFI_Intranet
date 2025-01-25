@@ -1,0 +1,79 @@
+import React, { useState, useEffect } from 'react';
+
+function PasswordProtection({ children }) {
+  const [password, setPassword] = useState('');
+  const [authenticated, setAuthenticated] = useState(false);
+  const correctPassword = '123'; // Replace with your desired password
+
+  useEffect(() => {
+    const storedAuth = localStorage.getItem('authenticated');
+    const storedTimestamp = localStorage.getItem('timestamp');
+    const currentTime = new Date().getTime();
+
+    if (storedAuth && storedTimestamp && currentTime - storedTimestamp < 2 * 60 * 60 * 1000) {
+      setAuthenticated(true);
+    }
+  }, []);
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmitPassword = () => {
+    if (password === correctPassword) {
+      setAuthenticated(true);
+      localStorage.setItem('authenticated', 'true');
+      localStorage.setItem('timestamp', new Date().getTime());
+    } else {
+      alert('Incorrect password');
+    }
+  };
+
+  return authenticated ? (
+    children // Render the child components (e.g., Dashboard) if authenticated
+  ) : (
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <h2 style={styles.header}>Password Protected</h2>
+        <input
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          placeholder="Enter password"
+          style={styles.input}
+        />
+        <button onClick={handleSubmitPassword} style={styles.button}>
+          Submit
+        </button>
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+  },
+  card: {
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    textAlign: 'center',
+  },
+  header: {
+    marginBottom: '20px',
+  },
+  input: {
+    marginBottom: '10px',
+    padding: '10px',
+    width: '100%',
+  },
+  button: {
+    padding: '10px 20px',
+  },
+};
+
+export default PasswordProtection;
