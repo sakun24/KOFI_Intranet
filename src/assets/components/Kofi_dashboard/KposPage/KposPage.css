@@ -163,7 +163,8 @@
 
 /* Button Group (Modal) */
 .dpl-modal .dpl-form button[type="submit"] {
-  margin-top: 15px;
+  margin-top: 150px;
+  /* background-color: red; */
 }
 
 /* Close Modal Button */

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { OrbitProgress } from 'react-loading-indicators';
 import './DepartmentList.css';
 
+const BASE_URL = 'http://192.168.123.90:8080'; // Base URL for API requests
+
 const DepartmentList = () => {
   const [departments, setDepartments] = useState([]); // List of departments
   const [loading, setLoading] = useState(true); // Loading state for departments
@@ -11,11 +13,16 @@ const DepartmentList = () => {
   const [password, setPassword] = useState(''); // Password entered by the user
   const [isLoggingIn, setIsLoggingIn] = useState(false); // Login loading state
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal open/close state
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false); // Password visibility state
   const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   // Fetch departments on component mount
   useEffect(() => {
-    fetch('http://192.168.120.151:8080/api/departments')
+    fetch(`${BASE_URL}/api/departments`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error fetching departments: ${response.statusText}`);
@@ -55,7 +62,7 @@ const DepartmentList = () => {
     setIsLoggingIn(true); // Show loading spinner for login
     try {
       // Login API request
-      const loginResponse = await fetch('http://192.168.120.151:8080/api/login', {
+      const loginResponse = await fetch(`${BASE_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +90,7 @@ const DepartmentList = () => {
       const encodedDepartmentId = btoa(longString);
 
       // Fetch KPO data after successful login
-      const kpoResponse = await fetch(`http://192.168.120.151:8080/api/v1/departments/${selectedDepartment.id}/kpos`, {
+      const kpoResponse = await fetch(`${BASE_URL}/api/v1/departments/${selectedDepartment.id}/kpos`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${loginData.token}`, // Include the token in the request header
@@ -137,8 +144,7 @@ const DepartmentList = () => {
 
   return (
     <div className="dpl-department-list-container">
-      <h2 className="dpl-h2">Select Department</h2>
-
+      <h2 className="dpl-h2">WELCOME TO DATA DASHBOARD ENTRY</h2>
       {/* Department list */}
       <div className="dpl-department-list-boxes">
         {departments.map((department) => (
@@ -162,12 +168,20 @@ const DepartmentList = () => {
             </div>
             <div className="dpl-modal-body">
               <input
-                type="password"
+                type={isPasswordVisible ? 'text' : 'password'}
                 className="dpl-password-input"
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <button style={{width: '20%',}}
+                type="button"
+                className="dpl-toggle-password"
+                onClick={togglePasswordVisibility}
+              >
+                {isPasswordVisible ? 'Hide Password' : 'Show Password'}
+              </button>
+              
               <button
                 className="dpl-login-button"
                 onClick={handleLogin}

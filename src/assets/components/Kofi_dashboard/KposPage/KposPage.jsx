@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './KposPage.css';
 
+const BASE_URL = 'http://192.168.123.90:8080';
+
 const KposPage = () => {
   const location = useLocation();
   const { encodedDepartmentId, name, kpos: initialKpos } = location.state;
@@ -37,7 +39,7 @@ const KposPage = () => {
       }
 
       const response = await fetch(
-        `http://192.168.120.151:8080/api/v1/departments/${decodedDepartmentId}/kpos`,
+        `${BASE_URL}/api/v1/departments/${decodedDepartmentId}/kpos`,
         {
           method: 'POST',
           headers: {
@@ -77,7 +79,7 @@ const KposPage = () => {
       }
 
       const response = await fetch(
-        `http://192.168.120.151:8080/api/v1/departments/${decodedDepartmentId}/kpos/${currentKpoId}`,
+        `${BASE_URL}/api/v1/departments/${decodedDepartmentId}/kpos/${currentKpoId}`,
         {
           method: 'PUT',
           headers: {
@@ -114,13 +116,19 @@ const KposPage = () => {
   // Handle the deletion of a KPO
   const handleDeleteKpo = async (kpoId) => {
     try {
+      // Confirmation dialog before deletion
+      const isConfirmed = window.confirm('Are you sure you want to delete this KPO?');
+      if (!isConfirmed) {
+        return; // Exit if the user cancels
+      }
+
       const token = localStorage.getItem('authToken');
       if (!token) {
         throw new Error('Authentication token is missing');
       }
 
       const response = await fetch(
-        `http://192.168.120.151:8080/api/v1/departments/${decodedDepartmentId}/kpos/${kpoId}`,
+        `${BASE_URL}/api/v1/departments/${decodedDepartmentId}/kpos/${kpoId}`,
         {
           method: 'DELETE',
           headers: {
@@ -134,6 +142,7 @@ const KposPage = () => {
         throw new Error('Failed to delete KPO');
       }
 
+      // Update the state to remove the deleted KPO
       setKpos(kpos.filter((kpo) => kpo.id !== kpoId));
     } catch (error) {
       console.error('Error deleting KPO:', error.message);

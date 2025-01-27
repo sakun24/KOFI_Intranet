@@ -3,12 +3,15 @@ import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { OrbitProgress } from 'react-loading-indicators';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import './dashboard.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const KPOS_API_URL = 'http://192.168.120.151:8080/api/kpos';
-const DEPARTMENTS_API_URL = 'http://192.168.120.151:8080/api/departments';
+const BASE_URL = 'http://192.168.123.90:8080';
+const KPOS_API_URL = `${BASE_URL}/api/kpos`;
+const DEPARTMENTS_API_URL = `${BASE_URL}/api/departments`;
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -16,15 +19,16 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [selectedBSC, setSelectedBSC] = useState('');
   const [filteredData, setFilteredData] = useState([]);
-  const [latestRecord, setLatestRecord] = useState(null); // To hold the latest record
+  const [latestRecord, setLatestRecord] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [kposResponse, departmentsResponse] = await Promise.all([
           axios.get(KPOS_API_URL),
-          axios.get(DEPARTMENTS_API_URL)
+          axios.get(DEPARTMENTS_API_URL),
         ]);
 
         setData(kposResponse.data);
@@ -42,25 +46,27 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/landing/kofi_dashboard/department'); // Change this to the route you want to navigate to
+    navigate('/landing/kofi_dashboard/department');
   };
 
   useEffect(() => {
-    // Filter or group data based on selected department
-    if (selectedDepartment) {
-      if (selectedDepartment === '') {
-        setFilteredData(data); // Show all data when "All Departments" is selected
-      } else {
-        setFilteredData(data.filter(item => item.department_id === parseInt(selectedDepartment, 10)));
-      }
-    } else {
-      setFilteredData(data); // Show all data if no department is selected
+    let filtered = data;
+
+    // Filter by BSC
+    if (selectedBSC) {
+      filtered = filtered.filter((item) => item.bsc === selectedBSC);
     }
-  }, [selectedDepartment, data]);
+
+    // Filter by department
+    if (selectedDepartment) {
+      filtered = filtered.filter((item) => item.department_id === parseInt(selectedDepartment, 10));
+    }
+
+    setFilteredData(filtered);
+  }, [selectedDepartment, selectedBSC, data]);
 
   useEffect(() => {
     if (data.length > 0) {
-      // Sort data to find the latest record based on created_at or updated_at
       const latest = data.reduce((latest, current) => {
         return new Date(current.updated_at) > new Date(latest.updated_at) ? current : latest;
       });
@@ -69,15 +75,19 @@ const Dashboard = () => {
   }, [data]);
 
   const calculateSummary = () => {
-    const totalMeet = filteredData.filter(item => parseFloat(item.status) >= 90).length;
-    const totalBehind = filteredData.filter(item => parseFloat(item.status) < 90).length;
+    const totalMeet = filteredData.filter((item) => parseFloat(item.status) >= 90).length;
+    const totalBehind = filteredData.filter((item) => parseFloat(item.status) < 90).length;
     return { meet: totalMeet, behind: totalBehind };
   };
 
   const summary = calculateSummary();
 
   const handleDepartmentChange = (e) => {
-    setSelectedDepartment(e.target.value); // Update selected department
+    setSelectedDepartment(e.target.value);
+  };
+
+  const handleBSCChange = (e) => {
+    setSelectedBSC(e.target.value);
   };
 
   // Dynamic Pie Chart Data
@@ -107,187 +117,207 @@ const Dashboard = () => {
     return new Date(date).toLocaleDateString('en-GB', options);
   };
 
-  if (loading) return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh' // or any suitable height
-    }}>
-      {loading && <OrbitProgress variant="split-disc" dense color="#f79100" size="large" text="" textColor="" />}
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="loading-container">
+        {loading && <OrbitProgress variant="split-disc" dense color="#f79100" size="large" text="" textColor="" />}
+      </div>
+    );
 
   if (error) return <p>Error: {error}</p>;
 
+  // Group data by department and filter out departments with no matching BSC
+  const groupedData = departments
+    .map((department) => {
+      const departmentData = filteredData.filter((item) => item.department_id === department.id);
+      return {
+        ...department,
+        data: departmentData,
+      };
+    })
+    .filter((department) => department.data.length > 0); // Only include departments with data
+
   return (
     <div className="dashboard">
-      <div className="header">
-        <h1 style={{ textAlign: 'center' }}>KOFI DASHBOARD V1.0</h1>
-        <button onClick={handleClick}>DATA ENTRY</button>
-      </div>
+      <motion.div className="header">
+        <h1 className="header-text">KOFI DASHBOARD V1.0</h1>
+        <button className="data_entry-button" onClick={handleClick}>
+          DATA ENTRY
+        </button>
+      </motion.div>
+
+      <motion.div
+        className="main-container"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: 'easeInOut' }}
+      >
+        <div className="sub-detail-header">
+          <h1 className="detail-header">
+            BUSINESS COMPETENCY STANDARD <br /> (BCS)
+          </h1>
+        </div>
+        <div className="sub-detail-boxes">
+          <div className="box">OUR BUSINESS</div>
+          <div className="box">OUR PROCESS</div>
+          <div className="box">OUR CUSTOMER</div>
+          <div className="box">OUR PEOPLE</div>
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="main-container"
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: 'easeInOut' }}
+      >
+        <div className="sub-detail-header">
+          <h1 className="detail-header">BUSINESS COMPETENCY STANDARD (BCS)</h1>
+        </div>
+        <div
+          className="sub-detail-boxes"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+        >
+          {[
+            { label: '(SALE)', value: '25M' },
+            { label: '(AUTOMATION)', value: '100%' },
+            { label: '(EES)', value: '85%' },
+            { label: '(PDC)', value: '85%' },
+          ].map((box, index) => (
+            <div
+              className="box1"
+              key={index}
+              whileHover={{
+                scale: 1.1,
+                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+              }}
+            >
+              <div className="text1">{box.label}</div>
+              <div className="text2">{box.value}</div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
 
       {/* Summary Section */}
-      <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#317AAE', padding: '20px', borderRadius: '10px', color: 'white' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-          <div style={{ textAlign: 'center', paddingBottom: '20px' }}>
+      <motion.div
+        className="summary-section"
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="summary-content">
+          <div className="summary-item">
             <h2>SUMMARY</h2>
-            <div style={{ fontSize: '50px', fontWeight: 'bold' }}>{filteredData.length}</div>
+            <div className="summary-value">{filteredData.length}</div>
           </div>
-          <div>
+          <div className="summary-status">
             <h3>90% STATUS</h3>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '20px' }}>
-              <div>
+            <div className="status-content">
+              <div className="status-item">
                 <h4>MEET</h4>
-                <div style={{ fontSize: '30px', color: 'green' }}>{summary.meet}</div>
+                <div className="status-value meet">{summary.meet}</div>
               </div>
-              <div style={{ width: '100px', height: '100px' }}>
+              <div className="status-chart">
                 <Pie data={chartData} options={chartOptions} />
               </div>
-              <div>
+              <div className="status-item">
                 <h4>BEHIND</h4>
-                <div style={{ fontSize: '30px', color: 'red' }}>{summary.behind}</div>
+                <div className="status-value behind">{summary.behind}</div>
               </div>
             </div>
           </div>
-          <div>
+          <div className="summary-total">
             <h4>TOTAL</h4>
-            <p>OUR BUSINESS: {filteredData.filter(item => item.bsc === 'Our Business').length}</p>
-            <p>OUR PROCESS: {filteredData.filter(item => item.bsc === 'Our Process').length}</p>
-            <p>OUR CUSTOMER: {filteredData.filter(item => item.bsc === 'Our Customer').length}</p>
-            <p>OUR PEOPLE: {filteredData.filter(item => item.bsc === 'Our People').length}</p>
+            <p>OUR BUSINESS: {filteredData.filter((item) => item.bsc === 'Our Business').length}</p>
+            <p>OUR PROCESS: {filteredData.filter((item) => item.bsc === 'Our Process').length}</p>
+            <p>OUR CUSTOMER: {filteredData.filter((item) => item.bsc === 'Our Customer').length}</p>
+            <p>OUR PEOPLE: {filteredData.filter((item) => item.bsc === 'Our People').length}</p>
+          </div>
+        </div>
+      </motion.div>
+
+      <div className="dashboard-mid_container">
+        <div className="latest-records">
+          <div className="record-item">
+            <strong>Created At: </strong>
+            <span>{formatDate(filteredData[filteredData.length - 1]?.created_at)}</span>
+          </div>
+          <div className="record-item">
+            <strong>Updated At: </strong>
+            <span>{formatDate(filteredData[filteredData.length - 1]?.updated_at)}</span>
+          </div>
+        </div>
+
+        <div className="filters">
+          <div className="department-filter">
+            <label htmlFor="department">Select Department:</label>
+            <select id="department" value={selectedDepartment} onChange={handleDepartmentChange}>
+              <option value="">All Departments</option>
+              {departments.map((department) => (
+                <option key={department.id} value={department.id}>
+                  {department.department_name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="department-filter">
+            <label htmlFor="bsc">Select BCS:</label>
+            <select id="bsc" value={selectedBSC} onChange={handleBSCChange}>
+              <option value="">All BCS</option>
+              <option value="Our Business">Our Business</option>
+              <option value="Our Process">Our Process</option>
+              <option value="Our Customer">Our Customer</option>
+              <option value="Our People">Our People</option>
+            </select>
           </div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', padding: '0 20px' }}>
-
-        {/* Latest records section (created_at and updated_at) */}
-        <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <strong style={{ fontSize: '16px', fontWeight: '600' }}>Created At: </strong>
-            <span style={{ fontSize: '14px', color: '#555' }}>
-              {formatDate(filteredData[filteredData.length - 1]?.created_at)}
-            </span>
+      <div className="table-container">
+        {groupedData.length === 0 ? (
+          <div className="no-data-message">
+            <p>No data available for the selected filters.</p>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <strong style={{ fontSize: '16px', fontWeight: '600' }}>Updated At: </strong>
-            <span style={{ fontSize: '14px', color: '#555' }}>
-              {formatDate(filteredData[filteredData.length - 1]?.updated_at)}
-            </span>
-          </div>
-        </div>
-
-        {/* Department filter dropdown */}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <label
-            htmlFor="department"
-            style={{
-              fontSize: '16px',
-              fontWeight: '600',
-              marginRight: '10px',
-              color: '#333', // Dark text color for better contrast with background
-            }}
-          >
-            Select Department:
-          </label>
-          <select
-            id="department"
-            value={selectedDepartment}
-            onChange={handleDepartmentChange}
-            style={{
-              padding: '10px 20px', // Balanced padding for better appearance
-              backgroundColor: '#ff8c00', // Slightly lighter orange for a modern look
-              color: '#fff', // White text for contrast
-              fontSize: '14px',
-              borderRadius: '6px', // Softer rounded corners
-              border: '1px solid #e57e00', // Matching border color
-              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', // Softer shadow for depth
-              outline: 'none',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease', // Smooth transition for hover effects
-            }}
-          >
-            <option value="" style={{ padding: '8px 12px' }}>
-              All Departments
-            </option>
-            {departments.map(department => (
-              <option
-                key={department.id}
-                value={department.id}
-                style={{
-                  padding: '10px', // Consistent padding
-                  backgroundColor: '#fff', // White background for options
-                  color: '#333', // Dark text for readability
-                  fontSize: '14px',
-                  borderRadius: '4px',
-                  border: '1px solid #ccc', // Lighter border for options
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)', // Soft shadow
-                  outline: 'none',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.2s ease', // Smooth background transition
-                }}
-              >
-                {department.department_name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {/* Render the table for all departments or the selected department */}
-      <div style={{ marginTop: '20px', backgroundColor: '#fff', padding: '10px', borderRadius: '10px', color: '#000' }}>
-        {/* Display tables for all departments if no department is selected */}
-        {(selectedDepartment === '' || selectedDepartment === 'all') && departments.map(department => {
-          const departmentData = filteredData.filter(item => item.department_id === department.id);
-          return (
-            <div key={department.id} style={{ marginBottom: '20px' }}>
-              {/* Department Header */}
-              <div
-                style={{
-                  backgroundColor: '#317AAE',
-                  color: 'white',
-                  textAlign: 'center',
-                  padding: '10px',
-                  fontWeight: 'bold',
-                  fontSize: '18px',
-                }}
-              >
-                {department.department_name}
-              </div>
-
-              {/* Table for Department */}
-              <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
+        ) : (
+          groupedData.map((department) => (
+            <div key={department.id} className="department-table">
+              <div className="department-header">{department.department_name}</div>
+              <table>
                 <thead>
-                  <tr style={{ backgroundColor: '#f4f4f4', textAlign: 'center' }}>
-                    <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>No</th>
-                    <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>KEY PERFORMANCE OBJECTIVE</th>
-                    <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>BCS</th>
-                    <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>Status</th>
-                    <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>90% Status</th>
-                    <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>KEY PROJECT INITIATIVE</th>
-                    <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>Deadline</th>
+                  <tr>
+                    <th>No</th>
+                    <th>KEY PERFORMANCE OBJECTIVE</th>
+                    <th>BCS</th>
+                    <th>Status</th>
+                    <th>90% Status</th>
+                    <th>KEY PROJECT INITIATIVE</th>
+                    <th>Deadline</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {departmentData.map((item, index) => (
-                    <tr key={item.id} style={{ textAlign: 'center' }}>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{index + 1}</td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{item.kpo_desc}</td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{item.bsc}</td>
-                      <td
-                        style={{
-                          padding: '8px',
-                          border: '1px solid #ddd',
-                          color: parseFloat(item.status) >= 90 ? 'green' : 'red',
-                        }}
-                      >
+                  {department.data.map((item, index) => (
+                    <tr key={item.id}>
+                      <td>{index + 1}</td>
+                      <td style={{ textAlign: 'left' }}>{item.kpo_desc}</td>
+                      <td>{item.bsc}</td>
+                      <td className={parseFloat(item.status) >= 90 ? 'status-meet' : 'status-behind'}>
                         {item.status}%
                       </td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-                        {parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}
-                      </td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+                      <td>{parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}</td>
+                      <td style={{ textAlign: 'left' }}>
                         {item.kpi_desc.split('\n').map((line, idx) => (
                           <span key={idx}>
                             {line}
@@ -295,83 +325,14 @@ const Dashboard = () => {
                           </span>
                         ))}
                       </td>
-                      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{formatDate(item.time_frame)}</td>
+                      <td>{formatDate(item.time_frame)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          );
-        })}
-
-        {/* Render the table for a selected department */}
-        {selectedDepartment !== '' && selectedDepartment !== 'all' && departments.map(department => {
-          if (department.id === parseInt(selectedDepartment, 10)) {
-            const departmentData = filteredData.filter(item => item.department_id === department.id);
-            return (
-              <div key={department.id} style={{ marginBottom: '20px' }}>
-                {/* Department Header */}
-                <div
-                  style={{
-                    backgroundColor: '#317AAE',
-                    color: 'white',
-                    textAlign: 'center',
-                    padding: '10px',
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                  }}
-                >
-                  {department.department_name}
-                </div>
-
-                {/* Table for Department */}
-                <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
-                  <thead>
-                    <tr style={{ backgroundColor: '#f4f4f4', textAlign: 'center' }}>
-                      <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>No</th>
-                      <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>KEY PERFORMANCE OBJECTIVE</th>
-                      <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>BCS</th>
-                      <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>Status</th>
-                      <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>90% Status</th>
-                      <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>KEY PROJECT INITIATIVE</th>
-                      <th style={{ padding: '8px', fontSize: '16px', border: '1px solid #ddd' }}>Deadline</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {departmentData.map((item, index) => (
-                      <tr key={item.id} style={{ textAlign: 'center' }}>
-                        <td style={{ padding: '8px', border: '1px solid #ddd' }}>{index + 1}</td>
-                        <td style={{ padding: '8px', border: '1px solid #ddd' }}>{item.kpo_desc}</td>
-                        <td style={{ padding: '8px', border: '1px solid #ddd' }}>{item.bsc}</td>
-                        <td
-                          style={{
-                            padding: '8px',
-                            border: '1px solid #ddd',
-                            color: parseFloat(item.status) >= 90 ? 'green' : 'red',
-                          }}
-                        >
-                          {item.status}%
-                        </td>
-                        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-                          {parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}
-                        </td>
-                        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-                          {item.kpi_desc.split('\n').map((line, idx) => (
-                            <span key={idx}>
-                              {line}
-                              <br />
-                            </span>
-                          ))}
-                        </td>
-                        <td style={{ padding: '8px', border: '1px solid #ddd' }}>{formatDate(item.time_frame)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            );
-          }
-        })}
+          ))
+        )}
       </div>
     </div>
   );
