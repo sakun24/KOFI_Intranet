@@ -293,12 +293,12 @@ const ContactList = () => {
                             ? String(employee.employee_number).padStart(4, '0')
                             : ''}
                         </td>
-                        <td>{employee.name}</td>
+                        <td  style={{textAlign:'left'}}>{employee.name}</td>
                         <td id='center'>{employee.position}</td>
                         <td id="center" style={{ whiteSpace: 'nowrap' }}>
                           {employee.contact_number || 'N/A'}
                         </td>
-                        <td>
+                        <td  style={{textAlign:'left'}}>
                           {employee.email ? (
                             <>
                               <a
