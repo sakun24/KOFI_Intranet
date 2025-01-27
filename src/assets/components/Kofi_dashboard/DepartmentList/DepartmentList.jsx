@@ -83,10 +83,6 @@ const DepartmentList = () => {
 
       // Create a long string for encoding
       const longString = selectedDepartment.id;
-      // const longString = selectedDepartment?.id ? selectedDepartment.id.toString().repeat(10) : '';
-      // const currentDateTime = new Date().toISOString(); // Get current datetime in ISO format
-      // const stringWithDateTime = longString + currentDateTime; // Append datetime to the department ID string
-      // const encodedDepartmentId = btoa(stringWithDateTime);
       const encodedDepartmentId = btoa(longString);
 
       // Fetch KPO data after successful login
@@ -117,6 +113,13 @@ const DepartmentList = () => {
       setError(error.message);
     } finally {
       setIsLoggingIn(false); // Hide the spinner after login
+    }
+  };
+
+  // Handle Enter key press for login
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin();
     }
   };
 
@@ -173,15 +176,17 @@ const DepartmentList = () => {
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyDown} // Add keydown event listener
               />
-              <button style={{width: '20%',}}
+              <button
+                style={{ width: '20%' }}
                 type="button"
                 className="dpl-toggle-password"
                 onClick={togglePasswordVisibility}
               >
                 {isPasswordVisible ? 'Hide Password' : 'Show Password'}
               </button>
-              
+
               <button
                 className="dpl-login-button"
                 onClick={handleLogin}

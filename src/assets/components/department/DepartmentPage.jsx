@@ -14,12 +14,14 @@ const departments = [
   {
     name: 'HR & ADMIN',
     options: [
-      { id: 1, name: 'ON BOARDING PROCESS', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' },
-      { id: 2, name: 'INDUCTION PROGRAM', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' },
-      { id: 3, name: 'MDP 1.0', url: '/landing/hr-idp' },
-      { id: 4, name: 'ORG CHART', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gUPR2O3PKADfL6mT?e=WFUbob' },
-      { id: 5, name: 'HR & ADMIN E-FORM', url: '/landing/hradmin_eform' },
-      { id: 6, name: 'HR SYSTEM', url: 'http://192.168.123.15/bluehcm//applogin.aspx' },
+      { id: 1, name: 'STRUCTURE 1.0', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gUPR2O3PKADfL6mT?e=WFUbob' },
+      { id: 2, name: 'ONBOARD 1.0', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' },
+      { id: 3, name: 'INDUCTION 1.0', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' },
+      { id: 4, name: 'MDP 1.0', url: '/landing/hr-idp' },
+      { id: 5, name: 'KPO Dashboard 1.0', url: '/landing/kofi_dashboard' },
+      { id: 6, name: 'Productivity 2.0', url: '#' },
+      { id: 7, name: 'E-FORM 1.0', url: '/landing/hradmin_eform' },
+      { id: 8, name: 'HRMIS 1.0', url: 'http://192.168.123.15/bluehcm//applogin.aspx' },
     ],
   },
   {

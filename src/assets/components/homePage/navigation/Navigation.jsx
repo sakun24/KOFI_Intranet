@@ -33,7 +33,7 @@ const Navigation = () => {
           </li>
           <li><NavLink to="/landing/contact-list" activeClassName="active">CONTACT LIST</NavLink></li>
           <li><NavLink to="/landing/departments" activeClassName="active">DEPARTMENTS</NavLink></li>
-          <li><NavLink to="/landing/kofi_dashboard" activeClassName="active">KOFI DASHBOARD</NavLink></li>
+          {/* <li><NavLink to="/landing/kofi_dashboard" activeClassName="active">KOFI DASHBOARD</NavLink></li> */}
           <li><NavLink to="/landing/foodmenu" activeClassName="active">FOOD MENU</NavLink></li>
         </ul>
       </div>
