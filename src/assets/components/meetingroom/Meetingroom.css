@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-.booking-room-container-detail{
+.booking-room-container-detail {
   height: 700px;
 }
 
@@ -12,15 +12,16 @@ body {
   font-family: Arial, sans-serif;
   color: #333;
 }
-
-.container_booking_room {
+.booking-grid{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+}
+.container_booking_room {
   gap: 20px;
   margin-top: 20px;
   margin-bottom: 50px;
 }
-
 
 .title {
   font-size: 26px;
@@ -33,13 +34,10 @@ body {
   animation: fadeIn 1.5s ease;
 }
 
-
-
-.room_section #room{
+.room_section #room {
   font-size: 24px;
   font-weight: bold;
   color: #522000;
-  /* padding-bottom: 10px; */
   border-bottom: 1px dashed #a3a3a3;
 }
 
@@ -99,12 +97,13 @@ body {
 
 .meeting_title {
   width: 100%;
-  overflow: hidden; 
-   white-space: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.meeting_room_h1{
+
+.meeting_room_h1 {
   color: #522000;
-  font-size: 26PX;
+  font-size: 26px;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
@@ -125,7 +124,6 @@ body {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  /* margin-top: 20px; */
   transition: background-color 0.3s ease;
   float: right;
 }
@@ -142,9 +140,9 @@ body {
   text-align: left;
   text-transform: capitalize;
   overflow: hidden;
-  white-space: nowrap;       /* Prevent text from wrapping */
-  text-overflow: ellipsis;   /* Show '...' when text overflows */
-  width: 300px;  
+  white-space: nowrap; /* Prevent text from wrapping */
+  text-overflow: ellipsis; /* Show '...' when text overflows */
+  width: 300px;
 }
 
 .details {
@@ -158,9 +156,9 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
-  white-space: nowrap;       /* Prevent text from wrapping */
-  overflow: hidden;          /* Hide the overflowing text */
-  text-overflow: ellipsis;  
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide the overflowing text */
+  text-overflow: ellipsis;
 }
 
 .location_dropdown {
@@ -270,10 +268,11 @@ body {
   font-size: 1.2em;
   text-align: center;
   margin-top: 20px;
-  margin:90PX 0;
+  margin: 90px 0;
   color: #ff0000;
 }
-.no-booking-message a{
+
+.no-booking-message a {
   text-decoration: none;
   color: rgb(189, 92, 1);
   font-weight: bold;
@@ -287,21 +286,18 @@ body {
   background-color: #fff;
   cursor: pointer;
   color: #333;
-  /* width: 200px; */
 }
 
-
-/* For larger screens */
 @media (min-width: 768px) {
   .container_booking_room {
-    grid-template-columns: 1fr 1fr 1fr; /* 3 columns layout */
+    grid-template-columns: repeat(3, 1fr); /* Ensure 3 columns */
     gap: 30px;
   }
-  
+
   .room_section {
     display: block;
   }
-  
+
   .ticket {
     max-width: 100%;
   }

@@ -15,8 +15,6 @@ import Monin from './assets/components/department/departmentInfo/monin/Monin.jsx
 import Sales from './assets/components/department/departmentInfo/sales/Sales.jsx';
 import HrAdmin from './assets/components/department/departmentInfo/hradmin/HrAdmin.jsx';
 import Footer from './assets/components/homePage/footer/Footer.jsx';
-import BookingRoomDetail from './assets/components/meetingroom/BookingRoomDetail.jsx';
-import BookingRoom from './assets/components/meetingroom/BookingRoom.jsx';
 import FoodMenu from './assets/components/food_menu/FoodMenu.jsx';
 import ProcurementExcel from './assets/components/department/departmentInfo/procurement/ProcurementExcel.jsx';
 import ProductionEform from './assets/components/department/departmentInfo/production/ProductionEform.jsx';
@@ -59,8 +57,6 @@ function App() {
           <Route path="/landing/monin_eform" element={<Monin />} /> 
           <Route path="/landing/sales_eform" element={<Sales />} /> 
           <Route path="/landing/hradmin_eform" element={<HrAdmin />} /> 
-          <Route path="/landing/meeting-room/booking-room" element={<BookingRoom />} /> 
-          <Route path="/landing/meeting-room/booking-room-detail" element={<BookingRoomDetail />} /> 
           <Route path="/landing/foodmenu" element={<FoodMenu />} /> 
           <Route path="/landing/hr-policy" element={<HrPolicy />} /> 
           <Route path="/landing/hr-idp" element={<HrIdp />} /> 

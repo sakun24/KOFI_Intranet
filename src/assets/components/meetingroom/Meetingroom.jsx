@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { OrbitProgress } from 'react-loading-indicators';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './Meetingroom.css'
 
 const BookingList = () => {
   const [data, setData] = useState(null);
@@ -67,7 +68,7 @@ const BookingList = () => {
 
   // Add button click handler
   const handleButtonClick = () => {
-    window.open('https://kofiroom.youcanbook.me/', '_blank');
+    window.open('http://192.168.123.90:81/login', '_blank');
   };
 
   // Check if no rooms are available for selected room
@@ -102,7 +103,7 @@ const BookingList = () => {
           (Testing) <br /><br />
           Oops! It looks like there's no room available right now. 😔
           <br />
-          But don't worry—click the button <a href="https://kofiroom.youcanbook.me/" target='blank'>"Book Room"</a> to make your reservation and secure your spot! 🎉
+          But don't worry—click the button <a href="http://192.168.123.90:81/login" target='blank'>"Book Room"</a> to make your reservation and secure your spot! 🎉
         </p>
       )}
       
@@ -113,6 +114,7 @@ const BookingList = () => {
         return (
           <div className='room_section' key={index}>
             <h2 id='room'>{room}</h2>
+            <div className="booking-grid">
             {groupedData[room].map((booked, bookingIndex) => (
               <div key={bookingIndex} className="container_booking_room">
                 <div className="ticket">
@@ -152,6 +154,7 @@ const BookingList = () => {
                 </div>
               </div>
             ))}
+            </div>
           </div>
         );
       })}

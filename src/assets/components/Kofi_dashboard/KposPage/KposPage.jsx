@@ -66,7 +66,7 @@ const KposPage = () => {
       });
     } catch (error) {
       console.error('Error creating KPO:', error.message);
-      setError('Error creating KPO');
+      setError('Error creating KPO. Please Refresh the page and try again');
     }
   };
 
@@ -109,7 +109,7 @@ const KposPage = () => {
       });
     } catch (error) {
       console.error('Error updating KPO:', error.message);
-      setError('Error updating KPO');
+      setError('Error updating KPO. Please Refresh the page and try again');
     }
   };
 
@@ -296,26 +296,15 @@ const KposPage = () => {
                 </dd>
                 <dt>Status:</dt>
                 <dd>
-                  <select
+                  <input
                     className="dpl-input"
                     name="status"
                     value={newKpo.status}
+                    type="number"
+                    min="0"
                     onChange={handleInputChange}
                     required
-                  >
-                    <option value="">Select a percentage</option>
-                    <option value="10">10%</option>
-                    <option value="20">20%</option>
-                    <option value="30">30%</option>
-                    <option value="40">40%</option>
-                    <option value="50">50%</option>
-                    <option value="60">60%</option>
-                    <option value="70">70%</option>
-                    <option value="80">80%</option>
-                    <option value="90">90%</option>
-                    <option value="100">100%</option>
-                    <option value="110">110%</option>
-                  </select>
+                  />
                 </dd>
                 <dt>Time Frame:</dt>
                 <dd>
