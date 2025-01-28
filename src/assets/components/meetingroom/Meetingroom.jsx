@@ -8,26 +8,35 @@ const BookingList = () => {
   const [selectedRoom, setSelectedRoom] = useState(''); // State for the selected room
 
   useEffect(() => {
-    const scriptUrl = 'https://script.google.com/macros/s/AKfycbxgSQDBMTfxEsHaePMeYt9FO-eF64UJ8IwVfYhkXjIsrmleWUXEl28f2jWZL-UXhs0s/exec';
+    const scriptUrl = 'http://192.168.123.91:3000/api/allbook/all';
     
-    // Fetch data from the Google Apps Script
+    // Fetch data from the API
     fetch(scriptUrl)
-      .then((response) => response.json()) // Assuming the response is in JSON format
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then((data) => {
-        setData(data);
+        console.log('API Response:', data);
+        setData(data.booked); // Update this line if the structure is different
         setLoading(false);
       })
-      .catch((error) => console.error('Error fetching data from Google Apps Script:', error));
+      .catch((error) => {
+        console.error('Error fetching data from API:', error);
+        setLoading(false); // Ensure loading is set to false even if there's an error
+      });
   }, []);
 
   // Get the current date and time
   const currentDate = new Date();
 
-  // Filter out bookings where the end time is before the current date
-  const filteredData = data?.filter(booking => new Date(booking['End Time']) > currentDate);
+  // Filter out bookings where the endTime is before the current date
+  const filteredData = data?.filter(booked => new Date(booked['endTime']) > currentDate);
 
-  // Sort the filtered data by 'Start Time' (A-Z)
-  const sortedData = filteredData?.sort((a, b) => new Date(a['Start Time']) - new Date(b['Start Time']));
+  // Sort the filtered data by 'startTime' (A-Z)
+  const sortedData = filteredData?.sort((a, b) => new Date(a['startTime']) - new Date(b['startTime']));
 
   // Render loading state or actual data
   if (loading) return (
@@ -41,13 +50,13 @@ const BookingList = () => {
     </div>
   );
 
-  // Group the data by 'Which Room'
-  const groupedData = sortedData.reduce((acc, booking) => {
-    const room = booking['Which Room'];
+  // Group the data by 'location'
+  const groupedData = sortedData.reduce((acc, booked) => {
+    const room = booked['location'];
     if (!acc[room]) {
       acc[room] = [];
     }
-    acc[room].push(booking);
+    acc[room].push(booked);
     return acc;
   }, {});
 
@@ -98,46 +107,45 @@ const BookingList = () => {
       )}
       
 
-
       {/* Displaying data for selected room */}
       {Object.keys(groupedData).map((room, index) => {
         if (selectedRoom && selectedRoom !== room) return null; // Skip rooms that are not selected
         return (
           <div className='room_section' key={index}>
             <h2 id='room'>{room}</h2>
-            {groupedData[room].map((booking, bookingIndex) => (
+            {groupedData[room].map((booked, bookingIndex) => (
               <div key={bookingIndex} className="container_booking_room">
                 <div className="ticket">
                   <div className="ticket_left">
                     <div className="ticket_info">
                     <h2 className="date">
-                      {new Date(booking['Start Time']).toLocaleDateString('en-GB', { day: '2-digit' })}
+                      {new Date(booked['startTime']).toLocaleDateString('en-GB', { day: '2-digit' })}
                     </h2>
                       <span >
-                        {new Date(booking['Start Time']).toLocaleString('default', { month: 'long' })}
+                        {new Date(booked['startTime']).toLocaleString('default', { month: 'long' })}
                       </span>
                     </div>
                   </div>
                   <div className="ticket_right">
                     <div className="meeting_title">
-                      <h3>{booking['MEETING TOPIC']}</h3>
+                      <h3>{booked['meetingTopic']}</h3>
                     </div>
                     <div className="details">
                       <p>
                         <i className="fa-solid fa-calendar-days"></i>{' '}
-                        {new Date(booking['Start Time']).getDate().toString().padStart(2, '0')}- 
-                        {new Date(booking['Start Time']).toLocaleString('default', { month: 'short' })}-
-                        {new Date(booking['Start Time']).getFullYear()}
+                        {new Date(booked['startTime']).getDate().toString().padStart(2, '0')}- 
+                        {new Date(booked['startTime']).toLocaleString('default', { month: 'short' })}-
+                        {new Date(booked['startTime']).getFullYear()}
                       </p>
                       <p>
-                        <i className="fa-solid fa-location-dot"></i> {booking['Which Room']}
+                        <i className="fa-solid fa-location-dot"></i> {booked['location']}
                       </p>
                       <p>
-                        <i className="fa-solid fa-user"></i> {booking['First Name']} {booking['Last Name']}
+                        <i className="fa-solid fa-user"></i> {booked['firstName']} {booked['lastName']}
                       </p>
                       <p>
-                        <i className="fa-solid fa-clock"></i> {new Date(booking['Start Time']).toLocaleTimeString()} -{' '}
-                        {new Date(booking['End Time']).toLocaleTimeString()} | {booking['Duration']}
+                        <i className="fa-solid fa-clock"></i> {new Date(booked['startTime']).toLocaleTimeString()} -{' '}
+                        {new Date(booked['endTime']).toLocaleTimeString()} | {booked['duration']} hours
                       </p>
                     </div>
                   </div>

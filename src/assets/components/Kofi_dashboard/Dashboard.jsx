@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { OrbitProgress } from 'react-loading-indicators';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import './dashboard.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBriefcase, 
+  faCogs,     
+  faUsers,     
+  faUserFriends, 
+  faShoppingCart,
+  faFaceGrinHearts,
+  faGraduationCap  , 
+} from '@fortawesome/free-solid-svg-icons';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -23,23 +33,25 @@ const Dashboard = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [latestRecord, setLatestRecord] = useState(null);
 
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [kposResponse, departmentsResponse] = await Promise.all([
+        axios.get(KPOS_API_URL),
+        axios.get(DEPARTMENTS_API_URL),
+      ]);
+
+      setData(kposResponse.data);
+      setDepartments(departmentsResponse.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [kposResponse, departmentsResponse] = await Promise.all([
-          axios.get(KPOS_API_URL),
-          axios.get(DEPARTMENTS_API_URL),
-        ]);
-
-        setData(kposResponse.data);
-        setDepartments(departmentsResponse.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -90,7 +102,7 @@ const Dashboard = () => {
     setSelectedBSC(e.target.value);
   };
 
-  // Dynamic Pie Chart Data
+  // Dynamic Doughnut Chart Data
   const chartData = {
     labels: ['Meet', 'Behind'],
     datasets: [
@@ -124,7 +136,12 @@ const Dashboard = () => {
       </div>
     );
 
-  if (error) return <p>Error: {error}</p>;
+  if (error)
+    return (
+      <div className="error-container">
+        <p>Oops! Something went wrong. Please try to Refresh again.</p>
+      </div>
+    );
 
   // Group data by department and filter out departments with no matching BSC
   const groupedData = departments
@@ -142,7 +159,7 @@ const Dashboard = () => {
       <motion.div className="header">
         <h1 className="header-text">KOFI DASHBOARD V1.0</h1>
         <button className="data_entry-button" onClick={handleClick}>
-          DATA ENTRY
+          <i className="fas fa-user-tie"></i> DATA ENTRY
         </button>
       </motion.div>
 
@@ -154,14 +171,22 @@ const Dashboard = () => {
       >
         <div className="sub-detail-header">
           <h1 className="detail-header">
-            BUSINESS COMPETENCY STANDARD <br /> (BCS)
+            BUSINESS COMPETENCY STANDARD 
           </h1>
         </div>
-        <div className="sub-detail-boxes">
-          <div className="box">OUR BUSINESS</div>
-          <div className="box">OUR PROCESS</div>
-          <div className="box">OUR CUSTOMER</div>
-          <div className="box">OUR PEOPLE</div>
+       <div className="sub-detail-boxes">
+          <div className="box">
+            <FontAwesomeIcon icon={faBriefcase} className="icon" /> OUR BUSINESS
+          </div>
+          <div className="box">
+            <FontAwesomeIcon icon={faCogs} className="icon" /> OUR PROCESS
+          </div>
+          <div className="box">
+            <FontAwesomeIcon icon={faUsers} className="icon" /> OUR CUSTOMER
+          </div>
+          <div className="box">
+            <FontAwesomeIcon icon={faUserFriends} className="icon" /> OUR PEOPLE
+          </div>
         </div>
       </motion.div>
 
@@ -172,7 +197,7 @@ const Dashboard = () => {
         transition={{ duration: 0.7, ease: 'easeInOut' }}
       >
         <div className="sub-detail-header">
-          <h1 className="detail-header">BUSINESS COMPETENCY STANDARD (BCS)</h1>
+          <h1 className="detail-header">OUR DIRECTION 2025</h1>
         </div>
         <div
           className="sub-detail-boxes"
@@ -189,11 +214,10 @@ const Dashboard = () => {
             },
           }}
         >
-          {[
-            { label: '(SALE)', value: '25M' },
-            { label: '(AUTOMATION)', value: '100%' },
-            { label: '(EES)', value: '85%' },
-            { label: '(PDC)', value: '85%' },
+         {[{ label: '(SALE)', value: '25M', icon: faShoppingCart },
+            { label: '(AUTOMATION)', value: '100%', icon: faCogs },
+            { label: '(EES)', value: '85%', icon: faFaceGrinHearts },
+            { label: '(PDC)', value: '85%', icon: faGraduationCap },
           ].map((box, index) => (
             <div
               className="box1"
@@ -203,10 +227,12 @@ const Dashboard = () => {
                 boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
               }}
             >
+              <FontAwesomeIcon icon={box.icon} className="icon" />
               <div className="text1">{box.label}</div>
               <div className="text2">{box.value}</div>
             </div>
           ))}
+
         </div>
       </motion.div>
 
@@ -230,7 +256,7 @@ const Dashboard = () => {
                 <div className="status-value meet">{summary.meet}</div>
               </div>
               <div className="status-chart">
-                <Pie data={chartData} options={chartOptions} />
+                <Doughnut data={chartData} options={chartOptions} />
               </div>
               <div className="status-item">
                 <h4>BEHIND</h4>
@@ -239,11 +265,13 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="summary-total">
-            <h4>TOTAL</h4>
-            <p>OUR BUSINESS: {filteredData.filter((item) => item.bsc === 'Our Business').length}</p>
-            <p>OUR PROCESS: {filteredData.filter((item) => item.bsc === 'Our Process').length}</p>
-            <p>OUR CUSTOMER: {filteredData.filter((item) => item.bsc === 'Our Customer').length}</p>
-            <p>OUR PEOPLE: {filteredData.filter((item) => item.bsc === 'Our People').length}</p>
+            <h2>TOTAL</h2>
+            <div className="grid_text">
+                <p>OUR BUSINESS <br /> <span style={{fontSize:'30px'}}>{filteredData.filter((item) => item.bsc === 'Our Business').length}</span></p>
+                <p>OUR PROCESS <br /> <span style={{fontSize:'30px'}}>{filteredData.filter((item) => item.bsc === 'Our Process').length}</span></p>
+                <p>OUR CUSTOMER <br /> <span style={{fontSize:'30px'}}>{filteredData.filter((item) => item.bsc === 'Our Customer').length}</span></p>
+                <p>OUR PEOPLE <br /> <span style={{fontSize:'30px'}}>{filteredData.filter((item) => item.bsc === 'Our People').length}</span></p>
+            </div>
           </div>
         </div>
       </motion.div>
