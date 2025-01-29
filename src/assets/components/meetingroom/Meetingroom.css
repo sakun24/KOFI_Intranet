@@ -86,6 +86,7 @@ body {
 .ticket_left .date {
   font-size: 48px;
   font-weight: bold;
+  color: white;
 }
 
 .ticket_right {

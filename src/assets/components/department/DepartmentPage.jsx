@@ -19,7 +19,7 @@ const departments = [
       { id: 3, name: 'INDUCTION 1.0', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' },
       { id: 4, name: 'MDP 1.0', url: '/landing/hr-idp' },
       { id: 5, name: 'KPO Dashboard 1.0', url: '/landing/kofi_dashboard' },
-      { id: 6, name: 'Productivity 2.0', url: '#' },
+      { id: 6, name: 'PRODUCTIVITY 2.0', url: 'https://1drv.ms/x/c/3d409cc6b690bc57/ERbKYjHHArJDrdYbaVFHzg0BrPU4BDdgcAjJYgGIEhRZOw?e=HfQHM2' },
       { id: 7, name: 'E-FORM 1.0', url: '/landing/hradmin_eform' },
       { id: 8, name: 'HRMIS 1.0', url: 'http://192.168.123.15/bluehcm//applogin.aspx' },
     ],

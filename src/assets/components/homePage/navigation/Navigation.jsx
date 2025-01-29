@@ -18,18 +18,16 @@ const Navigation = () => {
           <li><NavLink exact to="/landing/" end activeClassName="active">HOME</NavLink></li>
           <li className="nav_dropdown" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
             <NavLink to="/landing/meeting-room" disable activeClassName="active">MEETING ROOM</NavLink>
-            {isDropdownOpen && (
+            {/* {isDropdownOpen && (
               <ul className="nav_dropdown-menu">
               <li>
-  		<NavLink to="https://kofiroom.youcanbook.me/" activeClassName="active" target="_blank" rel="noopener noreferrer">
-    			BOOK ROOM
-  		</NavLink>
-		</li>
-
-
+                <NavLink to="https://kofiroom.youcanbook.me/" activeClassName="active" target="_blank" rel="noopener noreferrer">
+                    BOOK ROOM
+                </NavLink>
+              </li>
                 <li><NavLink to="/landing/meeting-room/booking-room-detail" activeClassName="active">BOOK ROOM DETAIL</NavLink></li>
               </ul>
-            )}
+            )} */}
           </li>
           <li><NavLink to="/landing/contact-list" activeClassName="active">CONTACT LIST</NavLink></li>
           <li><NavLink to="/landing/departments" activeClassName="active">DEPARTMENTS</NavLink></li>

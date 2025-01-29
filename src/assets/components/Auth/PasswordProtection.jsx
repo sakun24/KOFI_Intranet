@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 function PasswordProtection({ children }) {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
-  const correctPassword = '123'; // Replace with your desired password
+  const correctPassword = 'DASHBOARD@2025kofi'; // Replace with your desired password
 
   useEffect(() => {
     const storedAuth = localStorage.getItem('authenticated');
@@ -29,16 +29,23 @@ function PasswordProtection({ children }) {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmitPassword();
+    }
+  };
+
   return authenticated ? (
     children // Render the child components (e.g., Dashboard) if authenticated
   ) : (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h2 style={styles.header}>Password Protected</h2>
+        <h2 style={styles.header}>WELCOME TO KOFI DASHBOARD</h2>
         <input
           type="password"
           value={password}
           onChange={handlePasswordChange}
+          onKeyPress={handleKeyPress}
           placeholder="Enter password"
           style={styles.input}
         />

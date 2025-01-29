@@ -23,6 +23,9 @@ const BASE_URL = 'http://192.168.123.90:8080';
 const KPOS_API_URL = `${BASE_URL}/api/kpos`;
 const DEPARTMENTS_API_URL = `${BASE_URL}/api/departments`;
 
+
+
+
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [departments, setDepartments] = useState([]);
@@ -32,6 +35,8 @@ const Dashboard = () => {
   const [selectedBSC, setSelectedBSC] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [latestRecord, setLatestRecord] = useState(null);
+  const [count, setCount] = useState(0);
+  const targetCount = filteredData.length;
 
   const fetchData = async () => {
     setLoading(true);
@@ -52,7 +57,11 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    const timer = setTimeout(() => {
+      fetchData();
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const navigate = useNavigate();
@@ -85,6 +94,23 @@ const Dashboard = () => {
       setLatestRecord(latest);
     }
   }, [data]);
+
+  useEffect(() => {
+    let start = 0;
+    const end = targetCount;
+    if (start === end) return;
+
+    let totalDuration = 2000; // duration in ms
+    let incrementTime = totalDuration / end;
+
+    let timer = setInterval(() => {
+      start += 1;
+      setCount(start);
+      if (start === end) clearInterval(timer);
+    }, incrementTime);
+
+    return () => clearInterval(timer);
+  }, [targetCount]);
 
   const calculateSummary = () => {
     const totalMeet = filteredData.filter((item) => parseFloat(item.status) >= 90).length;
@@ -232,7 +258,6 @@ const Dashboard = () => {
               <div className="text2">{box.value}</div>
             </div>
           ))}
-
         </div>
       </motion.div>
 
@@ -246,7 +271,7 @@ const Dashboard = () => {
         <div className="summary-content">
           <div className="summary-item">
             <h2>SUMMARY</h2>
-            <div className="summary-value">{filteredData.length}</div>
+            <div className="summary-value">{count}</div>
           </div>
           <div className="summary-status">
             <h3>90% STATUS</h3>
@@ -325,7 +350,7 @@ const Dashboard = () => {
               <div className="department-header">{department.department_name}</div>
               <table>
                 <thead>
-                  <tr>
+                  <tr  style={{ whiteSpace: "nowrap" }}>
                     <th>No</th>
                     <th>KEY PERFORMANCE OBJECTIVE</th>
                     <th>BCS</th>
@@ -335,12 +360,12 @@ const Dashboard = () => {
                     <th>Deadline</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
                   {department.data.map((item, index) => (
                     <tr key={item.id}>
                       <td>{index + 1}</td>
                       <td style={{ textAlign: 'left' }}>{item.kpo_desc}</td>
-                      <td>{item.bsc}</td>
+                      <td  style={{ whiteSpace: "nowrap" }}>{item.bsc}</td>
                       <td className={parseFloat(item.status) >= 90 ? 'status-meet' : 'status-behind'}>
                         {item.status}%
                       </td>
@@ -353,7 +378,7 @@ const Dashboard = () => {
                           </span>
                         ))}
                       </td>
-                      <td>{formatDate(item.time_frame)}</td>
+                      <td  style={{ whiteSpace: "nowrap" }}>{formatDate(item.time_frame)}</td>
                     </tr>
                   ))}
                 </tbody>
