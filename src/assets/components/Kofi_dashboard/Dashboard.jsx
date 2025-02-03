@@ -33,9 +33,11 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [selectedBSC, setSelectedBSC] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [latestRecord, setLatestRecord] = useState(null);
   const [count, setCount] = useState(0);
+  const [reloadKey, setReloadKey] = useState(0);
   const targetCount = filteredData.length;
 
   const fetchData = async () => {
@@ -59,7 +61,7 @@ const Dashboard = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       fetchData();
-    }, 3000);
+    });
 
     return () => clearTimeout(timer);
   }, []);
@@ -83,8 +85,15 @@ const Dashboard = () => {
       filtered = filtered.filter((item) => item.department_id === parseInt(selectedDepartment, 10));
     }
 
+    // Filter by Status
+    if (selectedStatus === "meet") {
+      filtered = filtered.filter((item) => parseFloat(item.status) >= 90);
+    } else if (selectedStatus === "behind") {
+      filtered = filtered.filter((item) => parseFloat(item.status) < 90);
+    }
+
     setFilteredData(filtered);
-  }, [selectedDepartment, selectedBSC, data]);
+  }, [selectedDepartment, selectedBSC, selectedStatus , data,]);
 
   useEffect(() => {
     if (data.length > 0) {
@@ -128,6 +137,11 @@ const Dashboard = () => {
     setSelectedBSC(e.target.value);
   };
 
+  const handleStatusCChange = (e) => {
+    setSelectedStatus(e.target.value);
+  };
+
+
   // Dynamic Doughnut Chart Data
   const chartData = {
     labels: ['Meet', 'Behind'],
@@ -162,12 +176,20 @@ const Dashboard = () => {
       </div>
     );
 
-  if (error)
-    return (
-      <div className="error-container">
-        <p>Oops! Something went wrong. Please try to Refresh again.</p>
-      </div>
-    );
+
+    
+
+    if (error) {
+      useEffect(() => {
+        setReloadKey(prevKey => prevKey + 1); // This will trigger a re-render
+      }, []);
+    
+      return (
+        <div className="error-container">
+          <p>Oops! Something went wrong. The page will refresh in 5 seconds...</p>
+        </div>
+      );
+    }
 
   // Group data by department and filter out departments with no matching BSC
   const groupedData = departments
@@ -335,6 +357,14 @@ const Dashboard = () => {
               <option value="Our Customer">Our Customer</option>
               <option value="Our People">Our People</option>
             </select>
+            <div className="status">
+              <label htmlFor="status"> 90% Status :</label>
+              <select id="status" value={selectedStatus} onChange={handleStatusCChange}>
+                <option value="">All Status</option>
+                <option value="meet">Meet</option>
+                <option value="behind">Behind</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
