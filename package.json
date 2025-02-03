@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dabeng/react-orgchart": "^1.0.3",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -24,7 +25,9 @@
     "react-dom": "^18.3.1",
     "react-loading-indicators": "^1.0.0",
     "react-modal": "^3.16.1",
+    "react-orgchart": "^1.0.5",
     "react-router-dom": "^6.26.1",
+    "react-select": "^5.10.0",
     "swiper": "^11.1.12"
   },
   "devDependencies": {

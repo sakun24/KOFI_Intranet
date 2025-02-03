@@ -180,7 +180,9 @@ const ContactList = () => {
   
   
 
-  const filteredDepartments = departments.filter(department =>
+  const filteredDepartments = departments
+  .filter(department =>
+    department.name !== 'Management Team' && 
     (selectedDepartment === '' || selectedDepartment === department.name) &&
     Object.keys(filteredEmployees).includes(department.name)
   );
@@ -189,6 +191,14 @@ const ContactList = () => {
     department,
     employees: filteredEmployees[department.name] || []
   }));
+
+  const departmentOptions = departments
+  .filter(department => department.name !== 'Management Team')
+  .map(department => (
+    <option key={department.name} value={department.name}>
+      {department.name}
+    </option>
+  ));
 
   if (loading) return (
     <div style={{
@@ -242,11 +252,12 @@ const ContactList = () => {
       </div>
 
       <div className="dropdown-container-department">
-        <select value={selectedDepartment} onChange={handleDepartmentChange}>
+        <select
+          value={selectedDepartment}
+          onChange={e => setSelectedDepartment(e.target.value)}
+        >
           <option value="">All Departments</option>
-          {departments.map(dept => (
-            <option key={dept.id} value={dept.name}>{dept.name}</option>
-          ))}
+          {departmentOptions}
         </select>
       </div>
 

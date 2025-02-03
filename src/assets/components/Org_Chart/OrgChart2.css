@@ -1,0 +1,62 @@
+
+/* Styling for each node in the chart */
+.org-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  background-color: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for nodes to create interactivity */
+.org-node:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the profile picture */
+.profile-pic {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 2px solid #e1e1e1;
+}
+
+/* Node info text styling */
+.node-info {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Position and style for job title */
+.node-info p {
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
+}
+
+/* Styling for the note about managers from other departments */
+.manager-note {
+  font-size: 12px;
+  color: #f9a825; /* Warm yellow */
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* Smooth transition for the profile image */
+.profile-pic,
+.node-info {
+  transition: all 0.3s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+}

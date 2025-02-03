@@ -31,6 +31,8 @@ import DepartmentList from './assets/components/Kofi_dashboard/DepartmentList/De
 import KposPage from './assets/components/Kofi_dashboard/KposPage/KposPage.jsx';
 import Dashboard from './assets/components/Kofi_dashboard/Dashboard.jsx';
 import PasswordProtection from './assets/components/Auth/PasswordProtection.jsx';
+import OrgChartComponent from './assets/components/Org_Chart/OrgChartComponent.jsx';
+import OrgChart2 from './assets/components/Org_Chart/OrgChart2.jsx';
 
 function App() {
   return (
@@ -72,8 +74,8 @@ function App() {
             }
           />
           <Route path="/landing/v1/department/:departmentId/kpos" element={<KposPage />} />
-
-
+          <Route path="/landing/orgchart" element={<OrgChartComponent/>} />
+          <Route path="/landing/orgchart2" element={<OrgChart2/>} />
           
           {/* Fallback route for 404 errors */}
           <Route path="*" element={<NotFound />} />

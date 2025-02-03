@@ -100,7 +100,7 @@ const Dashboard = () => {
     const end = targetCount;
     if (start === end) return;
 
-    let totalDuration = 2000; // duration in ms
+    let totalDuration = 1200; // duration in ms
     let incrementTime = totalDuration / end;
 
     let timer = setInterval(() => {
@@ -183,7 +183,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <motion.div className="header">
-        <h1 className="header-text">KOFI DASHBOARD V1.0</h1>
+        <h1 className="header-text">KOFI DASHBOARD 1.0</h1>
         <button className="data_entry-button" onClick={handleClick}>
           <i className="fas fa-user-tie"></i> DATA ENTRY
         </button>
@@ -348,37 +348,30 @@ const Dashboard = () => {
           groupedData.map((department) => (
             <div key={department.id} className="department-table">
               <div className="department-header">{department.department_name}</div>
-              <table>
-                <thead>
-                  <tr  style={{ whiteSpace: "nowrap" }}>
-                    <th>No</th>
-                    <th>KEY PERFORMANCE OBJECTIVE</th>
-                    <th>BCS</th>
-                    <th>Status</th>
-                    <th>90% Status</th>
-                    <th>KEY PROJECT INITIATIVE</th>
-                    <th>Deadline</th>
-                  </tr>
-                </thead>
-                <tbody >
+              <table style={{ width: "100%", tableLayout: "fixed" }}>
+               <thead>
+                <tr style={{ whiteSpace: "nowrap" }}>
+                  <th style={{ width: "5%" }}>No</th>
+                  <th style={{ textAlign: "left", width: "35%" }}>KEY PERFORMANCE OBJECTIVE</th>
+                  <th style={{ width: "10%" }}>BCS</th>
+                  <th style={{ width: "10%" }}>Status</th>
+                  <th style={{ width: "10%" }}>90% Status</th>
+                  <th style={{ textAlign: "left", width: "25%" }}>KEY PROJECT INITIATIVE</th>
+                  <th style={{ width: "10%" }}>Deadline</th>
+                </tr>
+              </thead>
+                <tbody>
                   {department.data.map((item, index) => (
                     <tr key={item.id}>
-                      <td>{index + 1}</td>
-                      <td style={{ textAlign: 'left' }}>{item.kpo_desc}</td>
-                      <td  style={{ whiteSpace: "nowrap" }}>{item.bsc}</td>
-                      <td className={parseFloat(item.status) >= 90 ? 'status-meet' : 'status-behind'}>
+                      <td data-label="No">{index + 1}</td>
+                      <td data-label="KEY PERFORMANCE OBJECTIVE" style={{ textAlign: 'left' }}>{item.kpo_desc}</td>
+                      <td data-label="BCS" style={{ whiteSpace: "nowrap", textAlign: 'left' }}>{item.bsc}</td>
+                      <td data-label="Status" className={parseFloat(item.status) >= 90 ? 'status-meet' : 'status-behind'}>
                         {item.status}%
                       </td>
-                      <td>{parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}</td>
-                      <td style={{ textAlign: 'left' }}>
-                        {item.kpi_desc.split('\n').map((line, idx) => (
-                          <span key={idx}>
-                            {line}
-                            <br />
-                          </span>
-                        ))}
-                      </td>
-                      <td  style={{ whiteSpace: "nowrap" }}>{formatDate(item.time_frame)}</td>
+                      <td data-label="90% Status">{parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}</td>
+                      <td data-label="KEY PROJECT INITIATIVE" style={{ textAlign: 'left' , color:'#ff8c00'}}>{item.kpi_desc}</td>
+                      <td data-label="Deadline" style={{whiteSpace:'nowrap'}}>{formatDate(item.time_frame)}</td>
                     </tr>
                   ))}
                 </tbody>
