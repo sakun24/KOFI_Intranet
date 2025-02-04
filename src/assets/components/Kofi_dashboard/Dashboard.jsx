@@ -8,13 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import './dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faBriefcase, 
-  faCogs,     
-  faUsers,     
-  faUserFriends, 
+  faBriefcase,
+  faCogs,
+  faUsers,
+  faUserFriends,
   faShoppingCart,
   faFaceGrinHearts,
-  faGraduationCap  , 
+  faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -22,9 +22,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const BASE_URL = 'http://192.168.123.90:8080';
 const KPOS_API_URL = `${BASE_URL}/api/kpos`;
 const DEPARTMENTS_API_URL = `${BASE_URL}/api/departments`;
-
-
-
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -93,7 +90,7 @@ const Dashboard = () => {
     }
 
     setFilteredData(filtered);
-  }, [selectedDepartment, selectedBSC, selectedStatus , data,]);
+  }, [selectedDepartment, selectedBSC, selectedStatus, data]);
 
   useEffect(() => {
     if (data.length > 0) {
@@ -105,8 +102,13 @@ const Dashboard = () => {
   }, [data]);
 
   useEffect(() => {
+    if (filteredData.length === 0) {
+      setCount(0); // Reset count to 0 if no data
+      return;
+    }
+
     let start = 0;
-    const end = targetCount;
+    const end = filteredData.length;
     if (start === end) return;
 
     let totalDuration = 1200; // duration in ms
@@ -119,9 +121,13 @@ const Dashboard = () => {
     }, incrementTime);
 
     return () => clearInterval(timer);
-  }, [targetCount]);
+  }, [filteredData]);
 
   const calculateSummary = () => {
+    if (filteredData.length === 0) {
+      return { meet: 0, behind: 0 };
+    }
+
     const totalMeet = filteredData.filter((item) => parseFloat(item.status) >= 90).length;
     const totalBehind = filteredData.filter((item) => parseFloat(item.status) < 90).length;
     return { meet: totalMeet, behind: totalBehind };
@@ -140,7 +146,6 @@ const Dashboard = () => {
   const handleStatusCChange = (e) => {
     setSelectedStatus(e.target.value);
   };
-
 
   // Dynamic Doughnut Chart Data
   const chartData = {
@@ -176,20 +181,17 @@ const Dashboard = () => {
       </div>
     );
 
+  if (error) {
+    useEffect(() => {
+      setReloadKey((prevKey) => prevKey + 1); // This will trigger a re-render
+    }, []);
 
-    
-
-    if (error) {
-      useEffect(() => {
-        setReloadKey(prevKey => prevKey + 1); // This will trigger a re-render
-      }, []);
-    
-      return (
-        <div className="error-container">
-          <p>Oops! Something went wrong. The page will refresh in 5 seconds...</p>
-        </div>
-      );
-    }
+    return (
+      <div className="error-container">
+        <p>Oops! Something went wrong. The page will refresh in 5 seconds...</p>
+      </div>
+    );
+  }
 
   // Group data by department and filter out departments with no matching BSC
   const groupedData = departments
@@ -218,11 +220,9 @@ const Dashboard = () => {
         transition={{ duration: 0.7, ease: 'easeInOut' }}
       >
         <div className="sub-detail-header">
-          <h1 className="detail-header">
-            BUSINESS COMPETENCY STANDARD 
-          </h1>
+          <h1 className="detail-header">BUSINESS COMPETENCY STANDARD</h1>
         </div>
-       <div className="sub-detail-boxes">
+        <div className="sub-detail-boxes">
           <div className="box">
             <FontAwesomeIcon icon={faBriefcase} className="icon" /> OUR BUSINESS
           </div>
@@ -262,7 +262,8 @@ const Dashboard = () => {
             },
           }}
         >
-         {[{ label: '(SALE)', value: '25M', icon: faShoppingCart },
+          {[
+            { label: '(SALE)', value: '27M+', icon: faShoppingCart },
             { label: '(AUTOMATION)', value: '100%', icon: faCogs },
             { label: '(EES)', value: '85%', icon: faFaceGrinHearts },
             { label: '(PDC)', value: '85%', icon: faGraduationCap },
@@ -314,10 +315,10 @@ const Dashboard = () => {
           <div className="summary-total">
             <h2>TOTAL</h2>
             <div className="grid_text">
-                <p>OUR BUSINESS <br /> <span style={{fontSize:'30px'}}>{filteredData.filter((item) => item.bsc === 'Our Business').length}</span></p>
-                <p>OUR PROCESS <br /> <span style={{fontSize:'30px'}}>{filteredData.filter((item) => item.bsc === 'Our Process').length}</span></p>
-                <p>OUR CUSTOMER <br /> <span style={{fontSize:'30px'}}>{filteredData.filter((item) => item.bsc === 'Our Customer').length}</span></p>
-                <p>OUR PEOPLE <br /> <span style={{fontSize:'30px'}}>{filteredData.filter((item) => item.bsc === 'Our People').length}</span></p>
+              <p>OUR BUSINESS <br /> <span style={{ fontSize: '30px' }}>{filteredData.filter((item) => item.bsc === 'Our Business').length}</span></p>
+              <p>OUR PROCESS <br /> <span style={{ fontSize: '30px' }}>{filteredData.filter((item) => item.bsc === 'Our Process').length}</span></p>
+              <p>OUR CUSTOMER <br /> <span style={{ fontSize: '30px' }}>{filteredData.filter((item) => item.bsc === 'Our Customer').length}</span></p>
+              <p>OUR PEOPLE <br /> <span style={{ fontSize: '30px' }}>{filteredData.filter((item) => item.bsc === 'Our People').length}</span></p>
             </div>
           </div>
         </div>
@@ -379,17 +380,17 @@ const Dashboard = () => {
             <div key={department.id} className="department-table">
               <div className="department-header">{department.department_name}</div>
               <table style={{ width: "100%", tableLayout: "fixed" }}>
-               <thead>
-                <tr style={{ whiteSpace: "nowrap" }}>
-                  <th style={{ width: "5%" }}>No</th>
-                  <th style={{ textAlign: "left", width: "35%" }}>KEY PERFORMANCE OBJECTIVE</th>
-                  <th style={{ width: "10%" }}>BCS</th>
-                  <th style={{ width: "10%" }}>Status</th>
-                  <th style={{ width: "10%" }}>90% Status</th>
-                  <th style={{ textAlign: "left", width: "25%" }}>KEY PROJECT INITIATIVE</th>
-                  <th style={{ width: "10%" }}>Deadline</th>
-                </tr>
-              </thead>
+                <thead>
+                  <tr style={{ whiteSpace: "nowrap" }}>
+                    <th style={{ width: "5%" }}>No</th>
+                    <th style={{ textAlign: "left", width: "35%" }}>KEY PERFORMANCE OBJECTIVE</th>
+                    <th style={{ width: "10%" }}>BCS</th>
+                    <th style={{ width: "10%" }}>Status</th>
+                    <th style={{ width: "10%" }}>90% Status</th>
+                    <th style={{ textAlign: "left", width: "25%" }}>KEY PROJECT INITIATIVE</th>
+                    <th style={{ width: "10%" }}>Deadline</th>
+                  </tr>
+                </thead>
                 <tbody>
                   {department.data.map((item, index) => (
                     <tr key={item.id}>
@@ -400,8 +401,8 @@ const Dashboard = () => {
                         {item.status}%
                       </td>
                       <td data-label="90% Status">{parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}</td>
-                      <td data-label="KEY PROJECT INITIATIVE" style={{ textAlign: 'left' , color:'#ff8c00'}}>{item.kpi_desc}</td>
-                      <td data-label="Deadline" style={{whiteSpace:'nowrap'}}>{formatDate(item.time_frame)}</td>
+                      <td data-label="KEY PROJECT INITIATIVE" style={{ textAlign: 'left', color: '#ff8c00' }}>{item.kpi_desc}</td>
+                      <td data-label="Deadline" style={{ whiteSpace: 'nowrap' }}>{formatDate(item.time_frame)}</td>
                     </tr>
                   ))}
                 </tbody>
