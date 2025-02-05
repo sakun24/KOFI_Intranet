@@ -10,7 +10,7 @@ import 'swiper/css/autoplay';
 import { EffectCreative, Autoplay } from 'swiper/modules';
 
 import './aboutus.css';
-import img1 from '../../../images/business-consultant01.webp';
+import img1 from '../../../images/business-consultant01.png';
 import img2 from '../../../images/img2.jpg';
 import img3 from '../../../images/img3.png';
 

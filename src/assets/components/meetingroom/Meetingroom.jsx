@@ -69,7 +69,7 @@ const BookingList = () => {
 
   // Add button click handler
   const handleButtonClick = () => {
-    // window.open('http://192.168.123.90:81/login', '_blank');
+    // window.open('http://iis.kofi.com.kh:81/login', '_blank');
     window.open('https://kofiroom.youcanbook.me/', '_blank');
   };
 
@@ -105,7 +105,7 @@ const BookingList = () => {
           (Testing) <br /><br />
           Oops! It looks like there's no room available right now. 😔
           <br />
-          But don't worry—click the button <a href="http://192.168.123.90:81/login" target='blank'>"Book Room"</a> to make your reservation and secure your spot! 🎉
+          But don't worry—click the button <a href="http://iis.kofi.com.kh:81/login" target='blank'>"Book Room"</a> to make your reservation and secure your spot! 🎉
         </p>
       )}
       

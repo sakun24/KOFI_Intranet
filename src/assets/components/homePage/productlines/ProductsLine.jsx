@@ -3,7 +3,7 @@ import './productsline.css';
 
 // Import images with the correct relative path
 import item1 from '../../../images/productLines/item1.png';
-import item2 from '../../../images/productLines/item2.webp';
+import item2 from '../../../images/productLines/item2.png';
 import item3 from '../../../images/productLines/item3.png';
 import item4 from '../../../images/productLines/item4.png';
 import item5 from '../../../images/productLines/item5.png';
@@ -12,7 +12,7 @@ import item7 from '../../../images/productLines/item7.png';
 import item8 from '../../../images/productLines/item8.png';
 import item9 from '../../../images/productLines/item9.png';
 import item10 from '../../../images/productLines/item10.png';
-import item11 from '../../../images/productLines/item11.webp';
+import item11 from '../../../images/productLines/item11.png';
 import item12 from '../../../images/productLines/item12.png';
 import item13 from '../../../images/productLines/item13.png';
 import item14 from '../../../images/productLines/item14.png';
@@ -23,10 +23,10 @@ import item18 from '../../../images/productLines/item18.png';
 import item19 from '../../../images/productLines/item19.png';
 import item20 from '../../../images/productLines/item20.png';
 import item21 from '../../../images/productLines/item21.png';
-import item22 from '../../../images/productLines/item22.webp';
-import item23 from '../../../images/productLines/item23.webp';
-import item24 from '../../../images/productLines/item24.webp';
-import item25 from '../../../images/productLines/item25.webp';
+import item22 from '../../../images/productLines/item22.png';
+import item23 from '../../../images/productLines/item23.png';
+import item24 from '../../../images/productLines/item24.png';
+import item25 from '../../../images/productLines/item25.png';
 import item26 from '../../../images/productLines/icehot.jpg';
 
 const imagePaths = [

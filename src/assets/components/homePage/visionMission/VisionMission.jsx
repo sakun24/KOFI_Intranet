@@ -1,10 +1,10 @@
 import React from 'react';
 import './VisionMission.css'; // Import the CSS file
-import Img1 from '../../../images/KOFI-Career.webp';
-import Img2 from '../../../images/our-mission.webp';
+import Img1 from '../../../images/KOFI-Career.png';
+import Img2 from '../../../images/our-mission.png';
 import Img3 from '../../../images/VisionMission.png';
 import { motion } from 'framer-motion';
-import year from '../../../images/15th-year-cover.webp'
+import year from '../../../images/15th-year-cover.png'
 
 function VisionMission() {
   return (

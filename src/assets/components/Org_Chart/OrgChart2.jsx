@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import OrgChart from "@dabeng/react-orgchart";
 import Select from "react-select";
 import "./OrgChart2.css";
-import PfDefault from "../../images/Kofi_Group.webp";
+import PfDefault from "../../images/Kofi_Group.png";
 
 const BASE_URL = "http://192.168.123.90";
 
