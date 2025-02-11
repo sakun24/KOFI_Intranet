@@ -14,7 +14,7 @@ const departments = [
   {
     name: 'HR & ADMIN',
     options: [
-      { id: 1, name: 'STRUCTURE 1.0', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gUPR2O3PKADfL6mT?e=WFUbob' },
+      { id: 1, name: 'STRUCTURE 1.0', url: '/landing/OrganizationalChart' },
       { id: 2, name: 'ONBOARD 1.0', url: 'https://docs.google.com/spreadsheets/d/1fOeBOhMygMlkTWf5eULMhpUH4hPHjh98/edit?gid=955140752#gid=955140752' },
       { id: 3, name: 'INDUCTION 1.0', url: 'https://1drv.ms/x/s!Ale8kLbGnEA9gTLIU7dI9KQPoqc_?e=0Oe7SN' },
       { id: 4, name: 'MDP 1.0', url: '/landing/hr-idp' },

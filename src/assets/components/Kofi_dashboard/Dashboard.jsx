@@ -385,8 +385,8 @@ const Dashboard = () => {
                     <th style={{ width: "5%" }}>No</th>
                     <th style={{ textAlign: "left", width: "35%" }}>KEY PERFORMANCE OBJECTIVE</th>
                     <th style={{ width: "10%" }}>BCS</th>
-                    <th style={{ width: "10%" }}>Status</th>
-                    <th style={{ width: "10%" }}>90% Status</th>
+                    <th style={{ width: "10%" }}>PROGRESS</th>
+                    <th style={{ width: "10%" }}>STATUS</th>
                     <th style={{ textAlign: "left", width: "25%" }}>KEY PROJECT INITIATIVE</th>
                     <th style={{ width: "10%" }}>Deadline</th>
                   </tr>
@@ -397,10 +397,10 @@ const Dashboard = () => {
                       <td data-label="No">{index + 1}</td>
                       <td data-label="KEY PERFORMANCE OBJECTIVE" style={{ textAlign: 'left' }}>{item.kpo_desc}</td>
                       <td data-label="BCS" style={{ whiteSpace: "nowrap", textAlign: 'left' }}>{item.bsc}</td>
-                      <td data-label="Status" className={parseFloat(item.status) >= 90 ? 'status-meet' : 'status-behind'}>
+                      <td data-label="PROGRESS" className={parseFloat(item.status) >= 90 ? 'status-meet' : 'status-behind'}>
                         {item.status}%
                       </td>
-                      <td data-label="90% Status">{parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}</td>
+                      <td data-label="STATUS">{parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}</td>
                       <td data-label="KEY PROJECT INITIATIVE" style={{ textAlign: 'left', color: '#ff8c00' }}>{item.kpi_desc}</td>
                       <td data-label="Deadline" style={{ whiteSpace: 'nowrap' }}>{formatDate(item.time_frame)}</td>
                     </tr>

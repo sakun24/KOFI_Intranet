@@ -1,54 +1,87 @@
-
-/* Styling for each node in the chart */
 .org-node {
+  background-color: #fcf0e1; 
+  border-radius: 15px; 
+  border: #441600 1px solid;
+  padding: 10px; 
+  width: 150px; 
+  height: 190px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+  /* justify-content: center; */
   text-align: center;
-  padding: 10px;
-  background-color: #ffffff;
-  border: 1px solid #e1e1e1;
-  border-radius: 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Hover effect for nodes to create interactivity */
-.org-node:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Styling for the profile picture */
-.profile-pic {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 12px;
-  border: 2px solid #e1e1e1;
-}
-
-/* Node info text styling */
-.node-info {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* Position and style for job title */
-.node-info p {
-  font-size: 14px;
-  color: #777;
-  margin-top: 5px;
-}
-
-/* Styling for the note about managers from other departments */
-.manager-note {
   font-size: 12px;
-  color: #f9a825; /* Warm yellow */
-  margin-top: 5px;
+  word-wrap: break-word;
+  white-space: normal; 
+}
+
+
+.profile-pic {
+  width: 60px; /* Smaller profile image */
+  height: 60px; /* Match height and width */
+  border-radius: 50%; /* Circular image */
+  object-fit: cover; /* Ensure the image doesn't stretch */
+  margin-bottom: 8px; /* Slightly smaller space between image and text */
+}
+
+.node-info {
+  font-family: Arial, sans-serif; /* Ensure good readability */
+  font-size: 12px; /* Adjust text size */
+  color: #333333; /* Dark text color for contrast */
+}
+
+.node-info strong {
+  font-size: 14px; /* Slightly larger for name */
+  font-weight: bold;
+}
+
+.node-info p {
+  margin: 3px 0; /* Reduced space between paragraphs */
+  color: #555555; /* Slightly lighter for the title */
+}
+
+.manager-note {
+  font-size: 10px;
+  color: #f39c12; /* Highlight manager from another department */
   font-style: italic;
+}
+
+/* Styling for the export bar */
+.ExportBar {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ExportBar .label_name{
+  width: 80%
+}
+.ExportBar label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.ExportBar input {
+  padding: 5px;
+  font-size: 1rem;
+  margin-right: 12px;
+  width: 50%;
+  border-radius: 5px;
+}
+
+.ExportBar button {
+  padding: 6px 12px;
+  background-color: #f5821f; /* Button color matching branding */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.ExportBar button:hover {
+  background-color: #d47219; /* Darker shade on hover */
 }
 
 /* Smooth transition for the profile image */

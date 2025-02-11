@@ -212,7 +212,7 @@ const KposPage = () => {
               <th>KPO Description</th>
               <th>KPI Description</th>
               <th>BSC</th>
-              <th>Status (%)</th>
+              <th>STATUS (%)</th>
               <th>Time Frame</th>
               <th>Actions</th>
             </tr>
