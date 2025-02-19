@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement  } from 'chart.js';
 import { OrbitProgress } from 'react-loading-indicators';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +17,7 @@ import {
   faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement  );
 
 const BASE_URL = 'http://192.168.123.90:8080';
 const KPOS_API_URL = `${BASE_URL}/api/kpos`;
@@ -36,6 +36,22 @@ const Dashboard = () => {
   const [count, setCount] = useState(0);
   const [reloadKey, setReloadKey] = useState(0);
   const targetCount = filteredData.length;
+  
+
+
+   // Define an array of colors for the bars
+   const barColors = [
+    '#FF6384', // Red
+    '#36A2EB', // Blue
+    '#FFCE56', // Yellow
+    '#4BC0C0', // Teal
+    '#9966FF', // Purple
+    '#FF9F40', // Orange
+    '#C9CBCF', // Gray
+    '#77DD77', // Green
+    '#FDFD96', // Light Yellow
+    '#FF6961', // Light Red
+  ];
 
   const fetchData = async () => {
     setLoading(true);
@@ -69,6 +85,7 @@ const Dashboard = () => {
     navigate('/landing/kofi_dashboard/department');
   };
 
+  
   useEffect(() => {
     let filtered = data;
 
@@ -162,12 +179,16 @@ const Dashboard = () => {
   const chartOptions = {
     plugins: {
       legend: {
-        display: false,
+        display: false, // Hide legend
       },
+      datalabels: {
+        display: false, // Disable data labels
+      },
+      cutout: '100%',
     },
     maintainAspectRatio: false,
   };
-
+  
   // Format deadline as dd-mmm-yyyy
   const formatDate = (date) => {
     const options = { year: 'numeric', month: 'short', day: '2-digit' };
@@ -203,9 +224,12 @@ const Dashboard = () => {
       };
     })
     .filter((department) => department.data.length > 0); // Only include departments with data
+    const sections = [...new Set(groupedData.flatMap(dept => dept.data.map(item => item.bsc)))];
 
-  return (
-    <div className="dashboard">
+
+    return (
+      <div className="dashboard">
+      
       <motion.div className="header">
         <h1 className="header-text">KOFI DASHBOARD 1.0</h1>
         <button className="data_entry-button" onClick={handleClick}>
@@ -324,6 +348,86 @@ const Dashboard = () => {
         </div>
       </motion.div>
 
+      <div className="table-container">
+          {groupedData.length === 0 ? (
+            <div className="no-data-message">
+              <p>No data available for the selected filters.</p>
+            </div>
+          ) : (
+            // Sort groupedData by average performance
+            (() => {
+              const sortedGroupedData = groupedData.slice().sort((a, b) => {
+                const avgA = a.data.length > 0
+                  ? a.data.reduce((sum, item) => sum + parseFloat(item.status), 0) / a.data.length
+                  : 0;
+                const avgB = b.data.length > 0
+                  ? b.data.reduce((sum, item) => sum + parseFloat(item.status), 0) / b.data.length
+                  : 0;
+                return avgB - avgA; // Sort in descending order (highest average first)
+              });
+
+              return (
+                <table style={{ width: "100%", tableLayout: "fixed", borderCollapse: "collapse" }}>
+                  <tbody>
+                    {/* Average Row */}
+                    <tr>
+                      <th style={{ width: '100px', backgroundColor: '#317AAE', color: 'white' }}>BSC</th>
+                      {sortedGroupedData.map((department) => (
+                        <th key={department.id} style={{ textAlign: "center", fontSize: '11px', backgroundColor: '#165C8E'}}>
+                          {department.department_name.split(" ").pop()}
+                        </th>
+                      ))}
+                    </tr>
+
+                    {/* Sections Rows */}
+                    {sections.map((bsc, sectionIndex) => (
+                      <tr key={sectionIndex}>
+                        <td style={{ backgroundColor: '#317AAE', color: 'white', textAlign: "left", padding: "10px", whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',fontSize: '12px' }}>
+                          {bsc}
+                        </td>
+
+                        {sortedGroupedData.map((department, depIndex) => {
+                          const items = department.data.filter(d => d.bsc === bsc);
+                          const avgStatus = items.length > 0
+                            ? Math.round(items.reduce((sum, item) => sum + parseFloat(item.status), 0) / items.length)
+                            : null;
+                          return (
+                            <td key={depIndex} style={{ fontSize: '12px', textAlign: "center", backgroundColor: avgStatus >= 90 ? 'green' : avgStatus >= 70 ? 'yellow' : 'red', color: "#303030" }}>
+                              {avgStatus !== null ? `${avgStatus}%` : "-"}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+
+                    {/* Performance Row */}
+                    <tr style={{ marginBottom: "15px" }}>
+                      <th style={{ backgroundColor: '#e57e00', color: "#540000" , fontSize:'12px'}}>OVERALL</th>
+                      {sortedGroupedData.map((department, depIndex) => {
+                        const avgStatus = department.data.length > 0
+                          ? Math.round(department.data.reduce((sum, item) => sum + parseFloat(item.status), 0) / department.data.length)
+                          : null;
+
+                        return (
+                          <td key={depIndex} style={{ textAlign: "center", color: "#540000", fontWeight: "bold", backgroundColor: '#FFA960' }}>
+                            {avgStatus !== null ? `${avgStatus}%` : "-"}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  </tbody>
+                </table>
+              );
+            })()
+          )}
+        </div>
+        
+        <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', fontSize: '14px' }}>
+          <div><span style={{ color: 'green', fontSize: '20px' }}>●</span> ACCEPTABLE</div>
+          <div><span style={{ color: 'yellow', fontSize: '20px' }}>●</span> ATTENTION</div>
+          <div><span style={{ color: 'red', fontSize: '20px' }}>●</span> CRITICAL</div>
+        </div>
+
       <div className="dashboard-mid_container">
         <div className="latest-records">
           <div className="record-item">
@@ -387,7 +491,7 @@ const Dashboard = () => {
                     <th style={{ width: "10%" }}>BCS</th>
                     <th style={{ width: "10%" }}>PROGRESS</th>
                     <th style={{ width: "10%" }}>STATUS</th>
-                    <th style={{ textAlign: "left", width: "25%" }}>KEY PROJECT INITIATIVE</th>
+                    <th style={{ textAlign: "left", width: "25%" ,whiteSpace:'nowrap'}}>KEY PROJECT INITIATIVE</th>
                     <th style={{ width: "10%" }}>Deadline</th>
                   </tr>
                 </thead>
@@ -401,7 +505,10 @@ const Dashboard = () => {
                         {item.status}%
                       </td>
                       <td data-label="STATUS">{parseFloat(item.status) >= 90 ? 'Meet' : 'Behind'}</td>
-                      <td data-label="KEY PROJECT INITIATIVE" style={{ textAlign: 'left', color: '#ff8c00' }}>{item.kpi_desc}</td>
+                      <td data-label="KEY PROJECT INITIATIVE" style={{ textAlign: 'left', color: '#ff8c00', whiteSpace: 'pre-line' }}>
+                        {item.kpi_desc}
+                      </td>
+
                       <td data-label="Deadline" style={{ whiteSpace: 'nowrap' }}>{formatDate(item.time_frame)}</td>
                     </tr>
                   ))}
@@ -411,6 +518,7 @@ const Dashboard = () => {
           ))
         )}
       </div>
+      
     </div>
   );
 };

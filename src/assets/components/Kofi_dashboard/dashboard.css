@@ -1,5 +1,6 @@
 .dashboard {
     font-family: Arial, sans-serif;
+    height: 100%;
   }
   
   .header {
@@ -490,32 +491,6 @@
   transition: background-color 0.2s ease;
 }
 
-.table-container .department-header {
-  background-color: #317AAE;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.table-container table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-.table-container th,
-.table-container td {
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-.table-container th {
-  background-color: #f4f4f4;
-}
 
 .status-meet {
   color: green;
@@ -554,4 +529,7 @@
 }
 .box1 .text2{
     font-size: 50px;
+}
+.bar-chart-container-bar{
+  height: 400px;
 }

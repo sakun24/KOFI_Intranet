@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { OrbitProgress } from 'react-loading-indicators';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import './Meetingroom.css'
+import './Meetingroom.css';
 import { motion } from 'framer-motion';
 
 const BookingList = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedRoom, setSelectedRoom] = useState(''); // State for the selected room
+  const [selectedRoom, setSelectedRoom] = useState('');
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
   useEffect(() => {
     const scriptUrl = 'http://192.168.123.91:3000/api/allbook/all';
     
-    // Fetch data from the API
     fetch(scriptUrl)
       .then((response) => {
         if (!response.ok) {
@@ -22,37 +22,26 @@ const BookingList = () => {
       })
       .then((data) => {
         console.log('API Response:', data);
-        setData(data.booked); // Update this line if the structure is different
+        setData(data.booked);
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching data from API:', error);
-        setLoading(false); // Ensure loading is set to false even if there's an error
+        setLoading(false);
       });
   }, []);
 
-  // Get the current date and time
   const currentDate = new Date();
 
-  // Filter out bookings where the endTime is before the current date
   const filteredData = data?.filter(booked => new Date(booked['endTime']) > currentDate);
-
-  // Sort the filtered data by 'startTime' (A-Z)
   const sortedData = filteredData?.sort((a, b) => new Date(a['startTime']) - new Date(b['startTime']));
 
-  // Render loading state or actual data
   if (loading) return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh'
-    }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <OrbitProgress variant="split-disc" dense color="#f79100" size="large" text="" textColor="" />
     </div>
   );
 
-  // Group the data by 'location'
   const groupedData = sortedData.reduce((acc, booked) => {
     const room = booked['location'];
     if (!acc[room]) {
@@ -62,26 +51,45 @@ const BookingList = () => {
     return acc;
   }, {});
 
-  // Handle change in selected room
   const handleRoomChange = (event) => {
     setSelectedRoom(event.target.value);
   };
 
-  // Add button click handler
   const handleButtonClick = () => {
-    // window.open('http://iis.kofi.com.kh:81/login', '_blank');
-    window.open('https://kofiroom.youcanbook.me/', '_blank');
+    window.open('http://iis.kofi.com.kh:81/login', '_blank');
   };
 
-  // Check if no rooms are available for selected room
   const isNoRoomSelected = !selectedRoom && Object.keys(groupedData).length === 0;
   const isNoBookingsForRoom = selectedRoom && !groupedData[selectedRoom]?.length;
+
+  const handleBookingClick = (booking) => {
+    setSelectedBooking(booking);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedBooking(null);
+  };
+
+  const handleClickOutside = (e) => {
+    // Close modal if clicked outside the modal content
+    if (e.target.classList.contains('modal')) {
+      setSelectedBooking(null);
+    }
+  };
+
+  const getStatus = (startTime, endTime) => {
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+    if (currentDate >= start && currentDate <= end) return 'In Progress';
+    if (currentDate < start) return 'Upcoming';
+    return '';
+  };
+
 
   return (
     <div>
       <h1 className='meeting_room_h1'>Meeting Room Information </h1>
 
-      {/* Dropdown for selecting room */}
       <div className="location_dropdown">
         <label htmlFor="roomSelect">Select Room:</label>
         <select id="roomSelect" onChange={handleRoomChange} value={selectedRoom}>
@@ -93,27 +101,21 @@ const BookingList = () => {
           ))}
         </select>
         
-        {/* Button */}
         <button onClick={handleButtonClick} className='meetingroom_button'>
           Book Room
         </button>
       </div>
 
-      {/* Message when no room is available or selected */}
       {isNoRoomSelected && (
         <p className="no-booking-message">
-          (Testing) <br /><br />
           Oops! It looks like there's no room available right now. 😔
           <br />
           But don't worry—click the button <a href="http://iis.kofi.com.kh:81/login" target='blank'>"Book Room"</a> to make your reservation and secure your spot! 🎉
         </p>
       )}
-      
-
-      {/* Displaying data for selected room */}
 
       {Object.keys(groupedData).map((room, index) => {
-        if (selectedRoom && selectedRoom !== room) return null; // Skip rooms that are not selected
+        if (selectedRoom && selectedRoom !== room) return null;
         return (
           <motion.div
             className="room_section"
@@ -133,6 +135,7 @@ const BookingList = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
+                  onClick={() => handleBookingClick(booked)}
                 >
                   <div className="ticket">
                     <div className="ticket_left" style={{ backgroundColor: booked['backgroundColor'] }}>
@@ -151,8 +154,7 @@ const BookingList = () => {
                       </div>
                       <div className="details">
                         <p>
-                          <i className="fa-solid fa-calendar-days"></i>{' '}
-                          {new Date(booked['startTime']).getDate().toString().padStart(2, '0')}-
+                          <i className="fa-solid fa-calendar-days"></i> {new Date(booked['startTime']).getDate().toString().padStart(2, '0')}- 
                           {new Date(booked['startTime']).toLocaleString('default', { month: 'short' })}-
                           {new Date(booked['startTime']).getFullYear()}
                         </p>
@@ -165,10 +167,9 @@ const BookingList = () => {
                         <p>
                           <i className="fa-solid fa-clock"></i> {new Date(booked['startTime']).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} -{' '}
                           {new Date(booked['endTime']).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} | {' '}
-                          {booked['duration'] <= 60
-                            ? `${booked['duration']} Minutes`
-                            : `${(booked['duration'] / 60).toFixed(0)} Hours`}
+                          {booked['duration'] <= 60 ? `${booked['duration']} Minutes` : `${(booked['duration'] / 60).toFixed(0)} Hours`}
                         </p>
+                        <p><strong>Status:</strong> <span className={getStatus(booked['startTime'], booked['endTime']) === 'In Progress' ? 'status-in-progress' : 'status-upcoming'}>{getStatus(booked['startTime'], booked['endTime'])}</span></p>
                       </div>
                     </div>
                   </div>
@@ -179,7 +180,24 @@ const BookingList = () => {
         );
       })}
 
+      {selectedBooking && (
+        <div className="modal" onClick={handleClickOutside}>
+          <div className="modal-content ">
+            <span className="close" onClick={handleCloseModal}>&times;</span>
+            <h2>Booking Details</h2>
+            <p><strong>Meeting Topic:</strong> {selectedBooking['meetingTopic']}</p>
+            <p><strong>Location:</strong> {selectedBooking['location']}</p>
+            <p><strong>Start Time:</strong> {new Date(selectedBooking['startTime']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
+            <p><strong>End Time:</strong> {new Date(selectedBooking['endTime']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
+            <p><strong>Duration:</strong> {selectedBooking['duration'] <= 60 ? `${selectedBooking['duration']} Minutes` : `${(selectedBooking['duration'] / 60).toFixed(0)} Hours`}</p>
+            <p><strong>Organizer:</strong> {selectedBooking['firstName']} {selectedBooking['lastName']}</p>
+            <p><strong>Phone Number:</strong> {selectedBooking['phoneNumber']}</p>
+            <p><strong>Email:</strong> {selectedBooking['email']}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
 export default BookingList;

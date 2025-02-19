@@ -69,6 +69,12 @@
   width: 50%;
   border-radius: 5px;
 }
+.no-select {
+  user-select: none; /* Prevents text selection */
+  -webkit-user-select: none; /* For Safari */
+  -moz-user-select: none; /* For Firefox */
+  -ms-user-select: none; /* For IE/Edge */
+}
 
 .ExportBar button {
   padding: 6px 12px;

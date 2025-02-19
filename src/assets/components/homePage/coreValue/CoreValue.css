@@ -1,24 +1,52 @@
+/* General styles for the core value container */
 #core_value {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, auto); 
+    margin-top: 20px;
     justify-content: space-between;
-    margin-top:20px;
-    gap: 10px; /* Optional: Adds space between the boxes */
-}
-
-.coreValue_box {
-   font-size: 14px;
-    padding: 5px 25px;
-    color: #521800;
-    display: flex;
-    justify-content: space-between; /* Centers text horizontally */
-    align-items: center; /* Centers text vertically */
-    background-color: #c2c2c26c;
-    /* height: 42px; */
-    border-radius: 5px;
+  }
+  
+  /* Styles for each core value box */
+  .coreValue_box {
+    background-color: #ffffff4f;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 30px;
     text-align: center;
-}
-.icon-spacing {
-    margin-left: 8px; /* Adds space between the text and the icon */
-}
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    justify-content: center;
+  }
+  
+  /* Styling for the first line (text + icon) */
+  .coreValue_box_line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Space between text and icon */
+  .coreValue_box_line div:first-child {
+    font-size: 14px;
+    font-weight: 600;
+    color: #540000;
+    margin-right: 8px; /* Space between text and icon */
+  }
+  
+  /* Icon styling */
+  .icon-spacing {
+    color: #540000; /* Icon color */
+  }
+  
+  /* Styling for the value text */
+  .coreValue_box_value {
+    font-size: 12px;
+    color: #F5821F;
+    font-style: italic;
+    margin-top: 5px; /* Space above the value */
+  }
+  

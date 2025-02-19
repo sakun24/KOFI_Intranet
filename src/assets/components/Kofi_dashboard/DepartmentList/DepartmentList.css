@@ -9,6 +9,7 @@
 
 .dpl-department-list-boxes {
     display: grid;
+    text-transform: uppercase;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     width: 100%;

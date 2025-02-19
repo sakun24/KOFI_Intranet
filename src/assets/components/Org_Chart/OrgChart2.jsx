@@ -14,8 +14,11 @@ const OrgChart2 = () => {
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [isExporting, setIsExporting] = useState(false);
     const [modalOpen, setModalOpen] = useState(false); // State to manage modal visibility
-    
     const orgchartRef = useRef(null);
+    const handleNodeClick = (event) => {
+        event.stopPropagation(); // Stop event from triggering selection
+    };
+    
 
     useEffect(() => {
         fetch(`${BASE_URL}/api/employees`)
@@ -180,20 +183,19 @@ const OrgChart2 = () => {
                 </div>
             )}
 
-       
-
-            {orgData ? (
+        {orgData ? (
+            <div className="no-select">
                 <OrgChart
                     ref={orgchartRef}
                     datasource={orgData}
                     NodeTemplate={MyNodeComponent}
                     pan={true}
-                    multipleSelect={true}
                     fit={true}
                 />
-            ) : (
-                <p>Loading chart...</p>
-            )}
+            </div>
+        ) : (
+            <p>Loading chart...</p>
+        )}
             <button onClick={() => setModalOpen(true)} style={{ marginTop: '20px',float:"right", padding: '10px', backgroundColor: '#F5821F', color: 'white', border: 'none' , cursor:'pointer' }}> Export</button>
         </div>
     );

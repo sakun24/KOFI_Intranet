@@ -210,9 +210,9 @@ const KposPage = () => {
             <tr className="kpoHeader">
               <th>No</th>
               <th>KPO Description</th>
-              <th>KPI Description</th>
               <th>BSC</th>
               <th>STATUS (%)</th>
+              <th>KPI Description</th>
               <th>Time Frame</th>
               <th>Actions</th>
             </tr>
@@ -222,9 +222,9 @@ const KposPage = () => {
               <tr key={kpo.id}>
                 <td>{index + 1}</td>
                 <td>{kpo.kpo_desc}</td>
-                <td>{kpo.kpi_desc}</td>
                 <td>{kpo.bsc}</td>
                 <td>{kpo.status}%</td>
+                <td>{kpo.kpi_desc}</td>
                 <td>{kpo.time_frame}</td>
                 <td>
                   <button onClick={() => openModal(kpo.id)} className="dpl-update-button">
@@ -266,18 +266,7 @@ const KposPage = () => {
                     required
                   />
                 </dd>
-                <dt>KPI Description:</dt>
-                <dd>
-                  <textarea
-                    className="dpl-textarea"
-                    name="kpi_desc"
-                    value={newKpo.kpi_desc}
-                    rows="5"
-                    placeholder="Use bullets for different points"
-                    onChange={handleInputChange}
-                    required
-                  />
-                </dd>
+               
                 <dt>BSC:</dt>
                 <dd>
                   <select
@@ -302,6 +291,18 @@ const KposPage = () => {
                     value={newKpo.status}
                     type="number"
                     min="0"
+                    onChange={handleInputChange}
+                    required
+                  />
+                </dd>
+                <dt>KPI Description:</dt>
+                <dd>
+                  <textarea
+                    className="dpl-textarea"
+                    name="kpi_desc"
+                    value={newKpo.kpi_desc}
+                    rows="5"
+                    placeholder="Use bullets for different points"
                     onChange={handleInputChange}
                     required
                   />
